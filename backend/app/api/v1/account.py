@@ -6,6 +6,8 @@ from app.db.database import get_db
 from app.db.dependencies import get_current_user
 from app.models.account import Account
 from app.models.transaction import Transaction
+from app.models.loan import LoanApplication
+from app.schemas.financial_summary import FinancialSummaryResponse
 from app.models.user import User
 from app.schemas.account import AccountResponse, TransactionResponse
 
@@ -44,3 +46,28 @@ def get_transactions(
         .where(Transaction.account_id == account.id)
         .order_by(Transaction.created_at.desc())
     ).all()
+loan_applications = db.scalars(
+        select(LoanApplication)
+        .where(LoanApplication.user_id == current_user.id)
+    ).all()
+
+    total_savings = sum(
+        transaction.amount
+        for transaction in transactions
+        if transaction.transaction_type == "SAVINGS"
+    )
+
+    pending_loans = sum(
+        1
+        for loan in loan_applications
+        if loan.application_status in ["SUBMITTED", "REVIEW_REQUIRED"]
+    )
+
+    return FinancialSummaryResponse(
+        balance=account.balance,
+        currency="INR",
+        total_savings=total_savings,
+        total_transactions=len(transactions),
+        loan_applications=len(loan_applications),
+        pending_loans=pending_loans,
+    )
