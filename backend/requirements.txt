@@ -8,3 +8,4 @@ bcrypt
 alembic
 pytest
 httpx
+psycopg2-binary
