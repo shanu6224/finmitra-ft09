@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "FinMitra",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "FinMitra",
+  "start_url": "/",
+  "theme_color": "rgb(22, 163, 74)",
+  "id": "finmitra-ft09",
+  "description": "Simple financial access for rural and underserved communities"
+}
