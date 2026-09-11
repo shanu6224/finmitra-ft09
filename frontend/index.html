@@ -315,6 +315,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0
  .voice-panel{right:15px;bottom:82px}
 }
 </style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#16A34A">
 </head>
 
 <body>
@@ -2334,6 +2336,14 @@ document.addEventListener("DOMContentLoaded",()=>{
  },700);
 });
 </script>
-
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("FinMitra service worker registered"))
+      .catch(error => console.error("Service worker registration failed:", error));
+  });
+}
+</script>
 </body>
 </html>
