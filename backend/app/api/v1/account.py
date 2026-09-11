@@ -19,7 +19,9 @@ def get_account(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    return db.scalar(select(Account).where(Account.user_id == current_user.id))
+    return db.scalar(
+        select(Account).where(Account.user_id == current_user.id)
+    )
 
 
 @router.get("/balance")
@@ -27,7 +29,10 @@ def get_balance(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    account = db.scalar(select(Account).where(Account.user_id == current_user.id))
+    account = db.scalar(
+        select(Account).where(Account.user_id == current_user.id)
+    )
+
     return {
         "balance": account.balance,
         "currency": "INR",
@@ -40,13 +45,32 @@ def get_transactions(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    account = db.scalar(select(Account).where(Account.user_id == current_user.id))
+    account = db.scalar(
+        select(Account).where(Account.user_id == current_user.id)
+    )
+
     return db.scalars(
         select(Transaction)
         .where(Transaction.account_id == account.id)
         .order_by(Transaction.created_at.desc())
     ).all()
-loan_applications = db.scalars(
+
+
+@router.get("/financial-summary", response_model=FinancialSummaryResponse)
+def get_financial_summary(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    account = db.scalar(
+        select(Account).where(Account.user_id == current_user.id)
+    )
+
+    transactions = db.scalars(
+        select(Transaction)
+        .where(Transaction.account_id == account.id)
+    ).all()
+
+    loan_applications = db.scalars(
         select(LoanApplication)
         .where(LoanApplication.user_id == current_user.id)
     ).all()
