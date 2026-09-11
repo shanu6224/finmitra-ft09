@@ -1,0 +1,2339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>FinMitra — Simple Finance. Everyone Included.</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f4fbf8;
+  --card:#fff;
+  --text:#17352d;
+  --muted:#71827d;
+  --primary:#087f68;
+  --primary2:#10a786;
+  --soft:#e5f7f1;
+  --line:#dcebe6;
+  --danger:#d94848;
+  --warning:#d89119;
+  --shadow:0 14px 40px rgba(22,70,58,.08);
+  --radius:22px;
+}
+html,body{width:100%;min-height:100%;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+/* SPLASH */
+#splash{
+ min-height:100vh;display:flex;align-items:center;justify-content:center;
+ padding:24px;background:
+ radial-gradient(circle at 10% 10%,#d9f6ed 0,transparent 35%),
+ radial-gradient(circle at 90% 90%,#dff7f0 0,transparent 35%),var(--bg)
+}
+.splash-card{
+ width:min(1050px,100%);background:rgba(255,255,255,.92);
+ border:1px solid var(--line);border-radius:34px;padding:46px;
+ box-shadow:var(--shadow);display:grid;grid-template-columns:1fr 420px;gap:42px
+}
+.logo-mark{
+ width:76px;height:76px;border-radius:24px;background:var(--primary);
+ color:white;display:flex;align-items:center;justify-content:center;
+ font-size:40px;font-weight:800;margin-bottom:22px
+}
+.brand{font-size:46px;font-weight:850;letter-spacing:-2px}
+.tagline{font-size:20px;color:var(--primary);font-weight:700;margin-top:8px}
+.splash-desc{max-width:600px;color:var(--muted);font-size:17px;line-height:1.7;margin:20px 0}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+.badge{background:var(--soft);color:#146c5b;padding:9px 13px;border-radius:999px;font-size:13px;font-weight:700}
+.start-btn{
+ border:0;background:var(--primary);color:#fff;border-radius:15px;padding:15px 24px;
+ font-weight:800;font-size:16px;box-shadow:0 8px 22px rgba(8,127,104,.2)
+}
+.start-btn:hover{background:#066e5a}
+
+/* VOICE */
+.voice-card{
+ background:#f8fcfb;border:1px solid var(--line);border-radius:26px;padding:22px;
+ align-self:center
+}
+.voice-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
+.voice-title{font-size:18px;font-weight:800}
+.online-dot{width:9px;height:9px;border-radius:50%;background:#20b77f;display:inline-block;margin-right:6px}
+.voice-lang{
+ width:100%;border:1px solid var(--line);background:#fff;border-radius:13px;padding:12px;
+ color:var(--text);outline:none;margin-bottom:13px
+}
+.voice-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.voice-btn{
+ border:1px solid var(--line);background:#fff;color:var(--text);
+ border-radius:13px;padding:11px;font-weight:700
+}
+.voice-btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.voice-status{
+ background:#eef8f5;border-radius:14px;padding:13px;margin-top:12px;
+ font-size:13px;line-height:1.5;color:#477269
+}
+.voice-transcript{
+ margin-top:10px;background:#fff;border:1px dashed var(--line);border-radius:13px;
+ min-height:54px;padding:12px;color:var(--muted);font-size:13px
+}
+
+/* AUTH */
+#auth{min-height:100vh;padding:25px;display:flex;align-items:center;justify-content:center}
+.auth-card{
+ width:min(850px,100%);background:#fff;border:1px solid var(--line);
+ border-radius:30px;box-shadow:var(--shadow);padding:38px;
+ display:grid;grid-template-columns:1fr 1fr;gap:35px
+}
+.auth-info h1{font-size:34px;margin:10px 0}
+.auth-info p{color:var(--muted);line-height:1.65}
+.auth-form{display:flex;flex-direction:column;gap:13px}
+.auth-form h2{margin-bottom:4px}
+label{font-size:13px;font-weight:750;color:#46635b}
+input,select,textarea{
+ width:100%;border:1px solid var(--line);border-radius:13px;
+ padding:12px 13px;background:#fff;color:var(--text);outline:none
+}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px #e3f5f0}
+.auth-btn{
+ border:0;background:var(--primary);color:white;border-radius:13px;padding:13px;font-weight:800
+}
+.secondary-btn{
+ border:1px solid var(--line);background:#fff;color:var(--text);border-radius:13px;padding:12px;font-weight:750
+}
+.demo-note{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* APP */
+#app{display:none;min-height:100vh}
+.app-shell{display:flex;min-height:100vh}
+.sidebar{
+ width:255px;background:#fff;border-right:1px solid var(--line);
+ padding:23px 15px;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:20
+}
+.side-brand{display:flex;align-items:center;gap:10px;padding:4px 10px 25px}
+.side-logo{
+ width:43px;height:43px;border-radius:13px;background:var(--primary);
+ color:#fff;display:flex;align-items:center;justify-content:center;font-weight:850;font-size:23px
+}
+.side-brand strong{font-size:20px}
+.nav-section{font-size:10px;font-weight:850;color:#91a19c;text-transform:uppercase;padding:12px 12px 7px;letter-spacing:1px}
+.nav-btn{
+ width:100%;display:flex;align-items:center;gap:11px;border:0;background:transparent;
+ color:#50655f;text-align:left;padding:11px 12px;border-radius:12px;margin-bottom:3px;font-weight:700
+}
+.nav-btn:hover,.nav-btn.active{background:var(--soft);color:var(--primary)}
+.logout{margin-top:18px;color:var(--danger)}
+.main{margin-left:255px;width:calc(100% - 255px);min-width:0}
+.topbar{
+ height:76px;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);
+ display:flex;align-items:center;justify-content:space-between;padding:0 30px;
+ position:sticky;top:0;z-index:10
+}
+.top-left{display:flex;align-items:center;gap:12px}
+.page-name{font-size:20px;font-weight:850}
+.status{font-size:12px;color:#438176;background:#edf8f5;padding:7px 10px;border-radius:999px}
+.top-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{border:1px solid var(--line);background:#fff;border-radius:11px;width:39px;height:39px}
+.mobile-menu{display:none}
+.content{padding:30px;max-width:1350px;margin:auto}
+.screen{display:none}
+.screen.active{display:block}
+.screen-header{margin-bottom:22px}
+.screen-header h1{font-size:32px;letter-spacing:-1px}
+.screen-header p{color:var(--muted);margin-top:7px;line-height:1.5}
+.explain-box{
+ background:#ecf8f4;border:1px solid #d5eee6;border-radius:17px;padding:15px;
+ color:#396d61;font-size:14px;line-height:1.55;margin-bottom:20px
+}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.card{
+ background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+ padding:21px;box-shadow:0 5px 20px rgba(30,80,67,.035);min-width:0
+}
+.card h3{font-size:18px;margin-bottom:8px}
+.card p{color:var(--muted);font-size:14px;line-height:1.55}
+.card-icon{
+ width:44px;height:44px;border-radius:14px;background:var(--soft);
+ display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px
+}
+.card button{margin-top:15px}
+.action{
+ border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px 13px;
+ color:var(--text);font-weight:750
+}
+.action.primary{background:var(--primary);border-color:var(--primary);color:#fff}
+.amount{
+ font-size:34px;font-weight:850;letter-spacing:-1px;margin:7px 0
+}
+.muted{color:var(--muted);font-size:13px}
+.progress{height:9px;background:#e8f1ee;border-radius:99px;overflow:hidden;margin:13px 0 7px}
+.progress span{height:100%;display:block;background:var(--primary);border-radius:99px}
+.activity{
+ display:flex;justify-content:space-between;gap:10px;padding:13px 0;
+ border-bottom:1px solid #edf2f0;font-size:14px
+}
+.activity:last-child{border-bottom:0}
+.plus{color:#15936f;font-weight:800}.minus{color:#d35b5b;font-weight:800}
+
+/* FORMS */
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.full{grid-column:1/-1}
+.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.result{
+ margin-top:17px;border-radius:16px;padding:16px;display:none;
+ border:1px solid var(--line);line-height:1.55;font-size:14px
+}
+.result.show{display:block}
+.result.good{background:#ecfaf4;border-color:#cceee0}
+.result.warn{background:#fff8e9;border-color:#f0dfb2}
+.result.danger{background:#fff0f0;border-color:#f2c7c7}
+.step-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.step{
+ display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);
+ border-radius:14px;background:#fbfdfc
+}
+.step-num{
+ min-width:28px;height:28px;border-radius:50%;background:var(--soft);color:var(--primary);
+ display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px
+}
+.info-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.info-row{
+ display:flex;gap:10px;padding:11px;border-radius:12px;background:#f7faf9;font-size:13px
+}
+.tag{display:inline-block;padding:5px 8px;border-radius:999px;background:var(--soft);color:var(--primary);font-size:11px;font-weight:800}
+
+/* INSURANCE */
+.insurance-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.insurance-card{
+ border:1px solid var(--line);background:#fff;border-radius:24px;padding:22px;
+ box-shadow:0 5px 20px rgba(30,80,67,.035)
+}
+.insurance-head{display:flex;gap:13px;align-items:center;margin-bottom:13px}
+.insurance-head .big-icon{
+ width:52px;height:52px;border-radius:16px;background:var(--soft);
+ display:flex;align-items:center;justify-content:center;font-size:27px
+}
+.insurance-card h2{font-size:20px}
+.insurance-card .simple{color:#546d66;font-size:14px;line-height:1.6;margin-bottom:15px}
+.insurance-points{display:flex;flex-direction:column;gap:9px}
+.insurance-points div{font-size:13px;color:#50655f}
+.insurance-points span{color:var(--primary);font-weight:850;margin-right:6px}
+.doc-box{
+ margin-top:15px;padding:14px;border-radius:15px;background:#f7faf9;border:1px solid #e7efec
+}
+.doc-box strong{font-size:13px}
+.doc-box ul{margin:8px 0 0 18px;color:var(--muted);font-size:13px;line-height:1.7}
+.learn-more{
+ border:1px solid var(--primary);background:#fff;color:var(--primary);
+ border-radius:12px;padding:10px 14px;font-weight:800
+}
+
+/* LOAN PROCESS */
+.loan-process{margin-top:20px}
+.process-track{display:flex;gap:8px;overflow:auto;padding-bottom:5px}
+.process-item{
+ flex:1;min-width:125px;padding:13px;border-radius:14px;background:#f5f9f7;
+ border:1px solid var(--line);font-size:12px
+}
+.process-item.done{background:var(--soft);border-color:#cceee3;color:#176d5d}
+.process-item.current{border-color:var(--primary);box-shadow:0 0 0 2px #e1f5f0}
+.process-item b{display:block;margin-bottom:5px}
+
+/* MODAL */
+.modal{
+ position:fixed;inset:0;background:rgba(20,43,37,.42);display:none;align-items:center;justify-content:center;
+ padding:20px;z-index:100
+}
+.modal.show{display:flex}
+.modal-card{
+ width:min(600px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:25px;
+ padding:25px;box-shadow:0 25px 80px rgba(0,0,0,.18)
+}
+.modal-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;margin-bottom:18px}
+.close{border:0;background:#f1f5f3;border-radius:10px;width:36px;height:36px}
+
+/* VOICE FLOAT */
+.voice-float{
+ position:fixed;right:22px;bottom:22px;width:57px;height:57px;border:0;border-radius:50%;
+ background:var(--primary);color:#fff;font-size:23px;box-shadow:0 10px 25px rgba(8,127,104,.3);z-index:50
+}
+.voice-panel{
+ position:fixed;right:22px;bottom:90px;width:min(370px,calc(100vw - 30px));
+ background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;
+ box-shadow:0 18px 55px rgba(20,60,50,.18);z-index:49;display:none
+}
+.voice-panel.show{display:block}
+.voice-panel h3{margin-bottom:5px}
+.voice-panel p{color:var(--muted);font-size:12px;line-height:1.45}
+.voice-panel .voice-status{margin-top:12px}
+.suggestion-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.suggestion{
+ border:1px solid var(--line);background:#f8fbfa;border-radius:999px;padding:7px 9px;
+ font-size:11px;color:#48645c
+}
+
+/* TOAST */
+#toast{
+ position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);
+ background:#183d34;color:#fff;padding:12px 17px;border-radius:12px;font-size:13px;
+ opacity:0;pointer-events:none;transition:.25s;z-index:200;max-width:90vw;text-align:center
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* RESPONSIVE */
+@media(max-width:1050px){
+ .splash-card{grid-template-columns:1fr}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .insurance-grid{grid-template-columns:1fr}
+}
+@media(max-width:800px){
+ .sidebar{transform:translateX(-100%);transition:.25s;width:270px;box-shadow:15px 0 40px rgba(0,0,0,.08)}
+ .sidebar.open{transform:translateX(0)}
+ .main{margin-left:0;width:100%}
+ .mobile-menu{display:block}
+ .content{padding:20px 15px}
+ .topbar{padding:0 15px;height:68px}
+ .top-actions .status{display:none}
+ .auth-card{grid-template-columns:1fr;padding:25px}
+ .splash-card{padding:27px}
+ .brand{font-size:38px}
+}
+@media(max-width:580px){
+ .grid,.grid2,.form-grid{grid-template-columns:1fr}
+ .full{grid-column:auto}
+ .splash-card{border-radius:24px;padding:22px}
+ .voice-card{padding:17px}
+ .screen-header h1{font-size:27px}
+ .card,.insurance-card{padding:17px}
+ .top-left .page-name{font-size:17px}
+ .voice-float{right:15px;bottom:15px}
+ .voice-panel{right:15px;bottom:82px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= SPLASH ================= -->
+<section id="splash">
+  <div class="splash-card">
+    <div>
+      <div class="logo-mark">₹</div>
+      <div class="brand">FinMitra</div>
+      <div class="tagline" data-i18n="tagline">Simple Finance. Everyone Included.</div>
+
+      <p class="splash-desc" data-i18n="splashDesc">
+        A lightweight financial-access platform designed for rural and underserved
+        communities with low-end smartphones, limited connectivity, language barriers,
+        and low digital literacy.
+      </p>
+
+      <div class="badges">
+        <span class="badge" data-i18n="badge1">Multilingual</span>
+        <span class="badge" data-i18n="badge2">Offline-first</span>
+        <span class="badge" data-i18n="badge3">Voice-guided</span>
+        <span class="badge" data-i18n="badge4">Safety-first</span>
+        <span class="badge" data-i18n="badge5">Low-end friendly</span>
+      </div>
+
+      <button class="start-btn" onclick="openLogin()" data-i18n="start">Start FinMitra →</button>
+    </div>
+
+    <div class="voice-card">
+      <div class="voice-top">
+        <div class="voice-title">🎙️ <span data-i18n="voiceAssistant">Voice Assistant</span></div>
+        <div><span class="online-dot"></span><span id="splashVoiceState">Ready</span></div>
+      </div>
+
+      <select id="languageSplash" class="voice-lang" onchange="setLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="ta">தமிழ்</option>
+        <option value="hi">हिन्दी</option>
+        <option value="te">తెలుగు</option>
+        <option value="ml">മലയാളം</option>
+      </select>
+
+      <div class="voice-actions">
+        <button class="voice-btn primary" onclick="startVoice()" data-i18n="speak">🎙 Speak</button>
+        <button class="voice-btn" onclick="explainCurrent()" data-i18n="explain">🔊 Explain</button>
+      </div>
+
+      <div class="voice-status" id="splashVoiceStatus" data-i18n="voiceReady">
+        Voice assistant is ready. You can speak or listen to the current screen.
+      </div>
+      <div class="voice-transcript" id="splashTranscript" data-i18n="voiceHint">
+        Your spoken request will appear here.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AUTH ================= -->
+<section id="auth" class="hidden">
+  <div class="auth-card">
+    <div class="auth-info">
+      <div class="logo-mark" style="width:58px;height:58px;font-size:30px">₹</div>
+      <h1 data-i18n="welcome">Welcome to FinMitra</h1>
+      <p data-i18n="loginExplain">
+        Simple access to everyday financial services. Choose your language,
+        type your details, or use voice guidance.
+      </p>
+
+      <div class="badges" style="margin-top:20px">
+        <span class="badge" data-i18n="secure">Secure authentication</span>
+        <span class="badge" data-i18n="simpleNav">Simple navigation</span>
+      </div>
+
+      <button class="secondary-btn" onclick="toggleRegister()" id="registerToggle">
+        Create New Login
+      </button>
+
+      <div class="voice-status" style="margin-top:14px">
+        🎙️ <span data-i18n="voiceLoginHelp">
+          You can use the voice button to fill your mobile number.
+        </span>
+      </div>
+    </div>
+
+    <div class="auth-form">
+      <h2 id="authTitle" data-i18n="login">Login</h2>
+
+      <div id="nameGroup" class="form-group hidden">
+        <label data-i18n="fullName">Full name</label>
+        <input id="nameInput" data-placeholder="namePlaceholder" placeholder="Enter your name">
+      </div>
+
+      <div class="form-group">
+        <label data-i18n="mobile">Mobile number</label>
+        <input id="mobileInput" inputmode="numeric" maxlength="10"
+               data-placeholder="mobilePlaceholder" placeholder="10-digit mobile number">
+      </div>
+
+      <div class="form-group">
+        <label data-i18n="pin">PIN</label>
+        <input id="pinInput" type="password" inputmode="numeric" maxlength="6"
+               data-placeholder="pinPlaceholder" placeholder="Enter PIN">
+      </div>
+
+      <button class="auth-btn" onclick="voiceLogin()" data-i18n="voiceFill">
+        🎙 Fill using Voice
+      </button>
+
+      <button class="auth-btn" onclick="submitAuth()" id="authSubmit" data-i18n="login">
+        Login
+      </button>
+
+      <button class="secondary-btn" onclick="demoLogin()" data-i18n="demoLogin">
+        Use Demo Account
+      </button>
+
+      <div class="demo-note" data-i18n="prototypeAuth">
+        Prototype authentication. Do not use real banking credentials.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APP ================= -->
+<section id="app">
+<div class="app-shell">
+
+<aside class="sidebar" id="sidebar">
+  <div class="side-brand">
+    <div class="side-logo">₹</div>
+    <strong>FinMitra</strong>
+  </div>
+
+  <div class="nav-section" data-i18n="main">Main</div>
+
+  <button class="nav-btn active" data-screen="dashboard" onclick="go('dashboard')">🏠 <span data-i18n="dashboard">Dashboard</span></button>
+  <button class="nav-btn" data-screen="payments" onclick="go('payments')">💸 <span data-i18n="payments">Payments</span></button>
+  <button class="nav-btn" data-screen="savings" onclick="go('savings')">🐷 <span data-i18n="savings">Savings</span></button>
+  <button class="nav-btn" data-screen="loans" onclick="go('loans')">💰 <span data-i18n="microcredit">Micro-credit</span></button>
+  <button class="nav-btn" data-screen="insurance" onclick="go('insurance')">🛡️ <span data-i18n="insurance">Insurance</span></button>
+
+  <div class="nav-section" data-i18n="tools">Tools</div>
+
+  <button class="nav-btn" data-screen="bills" onclick="go('bills')">🧾 <span data-i18n="bills">Bills & Recharge</span></button>
+  <button class="nav-btn" data-screen="budget" onclick="go('budget')">📊 <span data-i18n="budget">Budget</span></button>
+  <button class="nav-btn" data-screen="goals" onclick="go('goals')">🎯 <span data-i18n="goals">Savings Goals</span></button>
+  <button class="nav-btn" data-screen="scam" onclick="go('scam')">🛡️ <span data-i18n="scam">Scam Check</span></button>
+
+  <div class="nav-section" data-i18n="support">Support</div>
+
+  <button class="nav-btn" data-screen="learn" onclick="go('learn')">📚 <span data-i18n="learn">Learn</span></button>
+  <button class="nav-btn" data-screen="security" onclick="go('security')">🔐 <span data-i18n="security">Security</span></button>
+  <button class="nav-btn" data-screen="account" onclick="go('account')">👤 <span data-i18n="account">Account</span></button>
+
+  <button class="nav-btn logout" onclick="logout()">↪ <span data-i18n="logout">Logout</span></button>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div class="top-left">
+    <button class="icon-btn mobile-menu" onclick="toggleSidebar()">☰</button>
+    <span class="page-name" id="pageName">Dashboard</span>
+    <span class="status" id="networkStatus">● Online</span>
+  </div>
+
+  <div class="top-actions">
+    <select id="languageApp" class="icon-btn" style="width:125px;padding:5px"
+            onchange="setLanguage(this.value)">
+      <option value="en">English</option>
+      <option value="ta">தமிழ்</option>
+      <option value="hi">हिन्दी</option>
+      <option value="te">తెలుగు</option>
+      <option value="ml">മലയാളം</option>
+    </select>
+    <button class="icon-btn" onclick="notifyUser()">🔔</button>
+  </div>
+</header>
+
+<div class="content">
+
+<!-- DASHBOARD -->
+<section class="screen active" id="screen-dashboard">
+  <div class="screen-header">
+    <h1 data-i18n="dashboard">Dashboard</h1>
+    <p data-i18n="dashboardIntro">Your simple financial overview.</p>
+  </div>
+
+  <div class="explain-box" data-i18n="dashboardExplain">
+    This screen shows your available balance, savings progress, recent activity,
+    and whether your device is connected.
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon">💳</div>
+      <div class="muted" data-i18n="availableBalance">Available balance</div>
+      <div class="amount" id="balanceAmount">₹0.00</div>
+      <p data-i18n="balanceExplain">Updated from your current prototype account.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🐷</div>
+      <div class="muted" data-i18n="totalSavings">Total savings</div>
+      <div class="amount" id="savingsAmount">₹0.00</div>
+      <p data-i18n="savingsExplain">Money saved through the savings workflow.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📶</div>
+      <div class="muted" data-i18n="connection">Connection</div>
+      <div class="amount" style="font-size:22px" id="connectionText">Online</div>
+      <p data-i18n="offlineExplain">Pending actions remain on the device until sync.</p>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:18px">
+    <div class="card">
+      <h3 data-i18n="quickActions">Quick actions</h3>
+      <p data-i18n="quickExplain">Use the most common financial tasks directly.</p>
+      <div class="form-actions">
+        <button class="action primary" onclick="go('savings')">🐷 <span data-i18n="saveMoney">Save Money</span></button>
+        <button class="action" onclick="go('payments')">💸 <span data-i18n="sendReceive">Send / Receive</span></button>
+        <button class="action" onclick="go('bills')">🧾 <span data-i18n="payBill">Pay Bill</span></button>
+        <button class="action" onclick="go('scam')">🛡️ <span data-i18n="checkMessage">Check Message</span></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="savingsGoal">Savings goal</h3>
+      <p id="goalName">Emergency Fund</p>
+      <div class="progress"><span id="goalBar" style="width:0%"></span></div>
+      <div style="display:flex;justify-content:space-between">
+        <span class="muted" id="goalSaved">₹0</span>
+        <span class="muted" id="goalTarget">₹10,000</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h3 data-i18n="recentActivity">Recent activity</h3>
+    <div id="recentActivity">
+      <div class="muted" style="padding-top:12px" data-i18n="noActivity">No transactions yet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENTS -->
+<section class="screen" id="screen-payments">
+  <div class="screen-header">
+    <h1 data-i18n="payments">Payments</h1>
+    <p data-i18n="paymentsIntro">Simple send and receive workflows for the prototype.</p>
+  </div>
+
+  <div class="explain-box" data-i18n="paymentsExplain">
+    Payments in this prototype are simulated. No real money is transferred.
+    Every action creates a clear status so the user knows what happened.
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-icon">💸</div>
+      <h3 data-i18n="sendMoney">Send Money</h3>
+      <p data-i18n="sendExplain">Enter a recipient and amount, review it, then confirm.</p>
+
+      <div class="form-grid" style="margin-top:15px">
+        <div class="form-group">
+          <label data-i18n="recipient">Recipient</label>
+          <input id="payRecipient" placeholder="Payment ID / mobile">
+        </div>
+        <div class="form-group">
+          <label data-i18n="amount">Amount</label>
+          <input id="payAmount" type="number" min="1" placeholder="₹">
+        </div>
+      </div>
+
+      <button class="action primary" onclick="reviewPayment()" data-i18n="review">Review</button>
+      <div class="result" id="paymentResult"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📥</div>
+      <h3 data-i18n="receiveMoney">Receive Money</h3>
+      <p data-i18n="receiveExplain">Show your simulated payment ID to the sender.</p>
+      <div class="info-box" style="margin-top:15px">
+        <span class="tag">FinMitra ID</span>
+        <div style="font-size:22px;font-weight:850;margin-top:9px" id="paymentId">FM-USER-001</div>
+      </div>
+      <button class="action" onclick="copyPaymentId()" data-i18n="copyId">Copy ID</button>
+    </div>
+  </div>
+</section>
+
+<!-- SAVINGS -->
+<section class="screen" id="screen-savings">
+  <div class="screen-header">
+    <h1 data-i18n="savings">Savings</h1>
+    <p data-i18n="savingsIntro">Save money even when connectivity is temporarily unavailable.</p>
+  </div>
+
+  <div class="explain-box" data-i18n="savingsExplainFull">
+    When the device is offline, the saving request is stored locally as pending.
+    When internet returns, it is synchronized and confirmed.
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-icon">🐷</div>
+      <h3 data-i18n="saveMoney">Save Money</h3>
+      <p data-i18n="saveWorkflow">Enter an amount → review → confirm → sync if required.</p>
+
+      <div class="form-group" style="margin-top:15px">
+        <label data-i18n="amount">Amount</label>
+        <input id="saveAmount" type="number" min="1" placeholder="₹500">
+      </div>
+
+      <div class="form-actions">
+        <button class="action primary" onclick="reviewSaving()" data-i18n="review">Review</button>
+        <button class="action" onclick="simulateOffline()" data-i18n="testOffline">Test Offline</button>
+      </div>
+
+      <div class="result" id="savingResult"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h3 data-i18n="syncStatus">Sync Status</h3>
+      <p data-i18n="syncExplain">Pending local actions are shown before server confirmation.</p>
+      <div class="info-list">
+        <div class="info-row">📱 <span><b data-i18n="deviceQueue">Device queue:</b> <span id="queueCount">0</span></span></div>
+        <div class="info-row">☁️ <span><b data-i18n="serverState">Server state:</b> <span id="serverState">Confirmed</span></span></div>
+        <div class="info-row">🕒 <span><b data-i18n="lastSync">Last sync:</b> <span id="lastSync">—</span></span></div>
+      </div>
+      <button class="action primary" onclick="syncQueue()" data-i18n="syncNow">Sync Now</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h3 data-i18n="savingsHistory">Savings history</h3>
+    <div id="savingsHistory"></div>
+  </div>
+</section>
+
+<!-- LOANS -->
+<section class="screen" id="screen-loans">
+  <div class="screen-header">
+    <h1 data-i18n="microcredit">Micro-credit</h1>
+    <p data-i18n="loanIntro">Check a simulated eligibility result and follow the application process.</p>
+  </div>
+
+  <div class="explain-box" data-i18n="loanExplain">
+    This prototype does not issue real credit. It demonstrates how a user can
+    understand eligibility, submit details, review the application, and see its status.
+  </div>
+
+  <div class="card">
+    <div class="form-grid">
+      <div class="form-group">
+        <label data-i18n="requestedAmount">Requested amount</label>
+        <input id="loanAmount" type="number" min="1" placeholder="₹">
+      </div>
+
+      <div class="form-group">
+        <label data-i18n="loanPurpose">Loan purpose</label>
+        <select id="loanPurpose">
+          <option value="education" data-i18n="education">Education</option>
+          <option value="food" data-i18n="food">Food</option>
+          <option value="utilities" data-i18n="utilities">Utilities</option>
+          <option value="other" data-i18n="other">Other</option>
+        </select>
+      </div>
+
+      <div class="full form-actions">
+        <button class="action primary" onclick="checkEligibility()" data-i18n="checkEligibility">Check Eligibility</button>
+      </div>
+    </div>
+
+    <div class="result" id="eligibilityResult"></div>
+
+    <div id="loanApplicationArea" class="hidden" style="margin-top:20px">
+      <div class="loan-process">
+        <div class="process-track">
+          <div class="process-item current" id="lp1"><b>1</b><span data-i18n="eligibility">Eligibility</span></div>
+          <div class="process-item" id="lp2"><b>2</b><span data-i18n="details">Details</span></div>
+          <div class="process-item" id="lp3"><b>3</b><span data-i18n="review">Review</span></div>
+          <div class="process-item" id="lp4"><b>4</b><span data-i18n="submit">Submit</span></div>
+          <div class="process-item" id="lp5"><b>5</b><span data-i18n="status">Status</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:15px;background:#fbfdfc">
+        <h3 data-i18n="loanDetailsTitle">Application details</h3>
+        <p data-i18n="loanDetailsExplain">Confirm the purpose and requested amount before continuing.</p>
+
+        <div class="info-list">
+          <div class="info-row">💰 <span><b data-i18n="amount">Amount:</b> <span id="loanReviewAmount">₹0</span></span></div>
+          <div class="info-row">🎯 <span><b data-i18n="purpose">Purpose:</b> <span id="loanReviewPurpose">—</span></span></div>
+          <div class="info-row">🧪 <span><b data-i18n="type">Type:</b> <span data-i18n="prototypeSimulation">Prototype simulation</span></span></div>
+        </div>
+
+        <div class="form-actions">
+          <button class="action primary" onclick="continueLoanDetails()" data-i18n="continue">Continue</button>
+          <button class="action" onclick="resetLoan()" data-i18n="change">Change</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSURANCE -->
+<section class="screen" id="screen-insurance">
+  <div class="screen-header">
+    <h1 data-i18n="insurance">Insurance</h1>
+    <p data-i18n="insuranceIntro">Simple explanations of protection options.</p>
+  </div>
+
+  <div class="explain-box" data-i18n="insuranceExplain">
+    Insurance means paying for protection against certain risks. The exact benefits,
+    eligibility, exclusions, premium and documents depend on the policy.
+  </div>
+
+  <div class="insurance-grid">
+
+    <div class="insurance-card">
+      <div class="insurance-head">
+        <div class="big-icon">🏥</div>
+        <div>
+          <span class="tag" data-i18n="health">Health</span>
+          <h2 data-i18n="healthInsurance">Health Insurance</h2>
+        </div>
+      </div>
+
+      <div class="simple" data-i18n="healthSimple">
+        Helps cover eligible medical expenses according to the policy terms.
+        In simple words: it can reduce the financial burden of eligible healthcare costs.
+      </div>
+
+      <div class="insurance-points">
+        <div><span>✓</span><b data-i18n="whatItHelps">What it helps with:</b> <span data-i18n="healthHelp">Eligible hospital and medical expenses.</span></div>
+        <div><span>✓</span><b data-i18n="whoMayNeed">Who may need it:</b> <span data-i18n="healthWho">Families, older people and anyone wanting healthcare protection.</span></div>
+        <div><span>✓</span><b data-i18n="beforeApply">Before applying:</b> <span data-i18n="healthBefore">Check age, coverage, exclusions and premium.</span></div>
+      </div>
+
+      <div class="doc-box">
+        <strong>📄 <span data-i18n="documentsMayNeed">Documents that may be requested</span></strong>
+        <ul>
+          <li data-i18n="docIdentity">Identity/address proof</li>
+          <li data-i18n="docAge">Age/date-of-birth proof</li>
+          <li data-i18n="docMedical">Medical records or reports, if required</li>
+          <li data-i18n="docBank">Bank details for eligible claim processing, if required</li>
+        </ul>
+      </div>
+
+      <button class="learn-more" onclick="openInsurance('health')" data-i18n="learnMore">Learn More</button>
+    </div>
+
+    <div class="insurance-card">
+      <div class="insurance-head">
+        <div class="big-icon">🛡️</div>
+        <div>
+          <span class="tag" data-i18n="life">Life</span>
+          <h2 data-i18n="lifeInsurance">Life Insurance</h2>
+        </div>
+      </div>
+
+      <div class="simple" data-i18n="lifeSimple">
+        Provides financial protection to eligible beneficiaries if the insured person
+        dies during the policy period, subject to policy terms.
+      </div>
+
+      <div class="insurance-points">
+        <div><span>✓</span><b data-i18n="whatItHelps">What it helps with:</b> <span data-i18n="lifeHelp">Financial support for eligible beneficiaries.</span></div>
+        <div><span>✓</span><b data-i18n="whoMayNeed">Who may need it:</b> <span data-i18n="lifeWho">People whose family depends on their income.</span></div>
+        <div><span>✓</span><b data-i18n="beforeApply">Before applying:</b> <span data-i18n="lifeBefore">Check nominee details, exclusions, premium and policy period.</span></div>
+      </div>
+
+      <div class="doc-box">
+        <strong>📄 <span data-i18n="documentsMayNeed">Documents that may be requested</span></strong>
+        <ul>
+          <li data-i18n="docIdentity">Identity/address proof</li>
+          <li data-i18n="docAge">Age/date-of-birth proof</li>
+          <li data-i18n="docNominee">Nominee details and relationship proof, if required</li>
+          <li data-i18n="docIncome">Income/occupation proof, depending on policy</li>
+        </ul>
+      </div>
+
+      <button class="learn-more" onclick="openInsurance('life')" data-i18n="learnMore">Learn More</button>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <div class="card-icon">📄</div>
+    <h3 data-i18n="insuranceDocuments">Documents</h3>
+    <p data-i18n="documentsExplain">Common documents may include identity, address, age and nominee-related proof depending on the insurance type.</p>
+  </div>
+</section>
+
+<!-- BILLS -->
+<section class="screen" id="screen-bills">
+  <div class="screen-header">
+    <h1 data-i18n="bills">Bills & Recharge</h1>
+    <p data-i18n="billsIntro">Pay everyday bills through a simple review-and-confirm flow.</p>
+  </div>
+
+  <div class="explain-box" data-i18n="billsExplain">
+    Select a bill, enter the amount, review the details and confirm.
+    The payment is simulated in this prototype.
+  </div>
+
+  <div class="grid">
+    <div class="card"><div class="card-icon">⚡</div><h3 data-i18n="electricity">Electricity</h3><p data-i18n="electricityExplain">Pay your electricity bill.</p><button class="action primary" onclick="openBill('electricity')" data-i18n="payBill">Pay Bill</button></div>
+    <div class="card"><div class="card-icon">📱</div><h3 data-i18n="mobile">Mobile Recharge</h3><p data-i18n="mobileRechargeExplain">Recharge a mobile number.</p><button class="action primary" onclick="openBill('mobile')" data-i18n="recharge">Recharge</button></div>
+    <div class="card"><div class="card-icon">💧</div><h3 data-i18n="water">Water</h3><p data-i18n="waterExplain">Pay your water bill.</p><button class="action primary" onclick="openBill('water')" data-i18n="payBill">Pay Bill</button></div>
+    <div class="card"><div class="card-icon">🔥</div><h3 data-i18n="gas">Gas</h3><p data-i18n="gasExplain">Pay a gas bill.</p><button class="action primary" onclick="openBill('gas')" data-i18n="payBill">Pay Bill</button></div>
+    <div class="card"><div class="card-icon">📺</div><h3 data-i18n="dth">DTH</h3><p data-i18n="dthExplain">Recharge your TV service.</p><button class="action primary" onclick="openBill('dth')" data-i18n="recharge">Recharge</button></div>
+    <div class="card"><div class="card-icon">🌐</div><h3 data-i18n="internet">Internet</h3><p data-i18n="internetExplain">Pay your internet service bill.</p><button class="action primary" onclick="openBill('internet')" data-i18n="payBill">Pay Bill</button></div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section class="screen" id="screen-budget">
+  <div class="screen-header">
+    <h1 data-i18n="budget">Budget</h1>
+    <p data-i18n="budgetIntro">Understand where your money is planned to go.</p>
+  </div>
+  <div class="explain-box" data-i18n="budgetExplain">
+    A budget helps you plan income and spending before money is used.
+  </div>
+  <div class="grid">
+    <div class="card"><div class="card-icon">🍚</div><h3 data-i18n="food">Food</h3><div class="amount">₹2,500</div><p data-i18n="budgetFood">Planned monthly amount.</p></div>
+    <div class="card"><div class="card-icon">🏠</div><h3 data-i18n="home">Home</h3><div class="amount">₹3,000</div><p data-i18n="budgetHome">Rent and household needs.</p></div>
+    <div class="card"><div class="card-icon">💡</div><h3 data-i18n="utilities">Utilities</h3><div class="amount">₹1,500</div><p data-i18n="budgetUtilities">Electricity, water and services.</p></div>
+  </div>
+</section>
+
+<!-- GOALS -->
+<section class="screen" id="screen-goals">
+  <div class="screen-header">
+    <h1 data-i18n="goals">Savings Goals</h1>
+    <p data-i18n="goalsIntro">Set aside money for something important.</p>
+  </div>
+  <div class="explain-box" data-i18n="goalsExplain">
+    A savings goal gives a clear target and helps you see your progress.
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-icon">🎯</div>
+      <h3 data-i18n="emergencyFund">Emergency Fund</h3>
+      <p data-i18n="emergencyExplain">Money kept aside for unexpected needs.</p>
+      <div class="progress"><span id="goalBar2" style="width:0%"></span></div>
+      <p><b id="goalSaved2">₹0</b> / ₹10,000</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎓</div>
+      <h3 data-i18n="educationGoal">Education</h3>
+      <p data-i18n="educationGoalExplain">Save gradually for education-related expenses.</p>
+      <div class="progress"><span style="width:18%"></span></div>
+      <p><b>₹1,800</b> / ₹10,000</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCAM -->
+<section class="screen" id="screen-scam">
+  <div class="screen-header">
+    <h1 data-i18n="scam">Scam Check</h1>
+    <p data-i18n="scamIntro">Check suspicious messages before taking action.</p>
+  </div>
+  <div class="explain-box" data-i18n="scamExplain">
+    Paste a message you received. FinMitra checks common warning signs such as
+    OTP requests, urgent links, fake prizes and suspicious payment requests.
+  </div>
+
+  <div class="card">
+    <div class="form-group">
+      <label data-i18n="message">Message</label>
+      <textarea id="scamInput" rows="5" data-placeholder="scamPlaceholder"
+                placeholder="Paste a suspicious message here"></textarea>
+    </div>
+    <button class="action primary" onclick="checkScam()" data-i18n="analyze">Analyze Message</button>
+    <div class="result" id="scamResult"></div>
+  </div>
+</section>
+
+<!-- LEARN -->
+<section class="screen" id="screen-learn">
+  <div class="screen-header">
+    <h1 data-i18n="learn">Learn</h1>
+    <p data-i18n="learnIntro">Short lessons designed for first-time digital finance users.</p>
+  </div>
+
+  <div class="explain-box" data-i18n="learnExplain">
+    Choose a topic to understand what it means, why it matters, and what to remember.
+    You can listen to the explanation in your selected language.
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon">💰</div>
+      <h3 data-i18n="whySavings">Why Savings Matter</h3>
+      <p data-i18n="whySavingsExplain">Savings create money that can be used for planned needs and unexpected situations.</p>
+      <button class="action primary" onclick="openLesson('savings')" data-i18n="openLesson">Open Lesson</button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🏦</div>
+      <h3 data-i18n="understandCredit">Understanding Micro-credit</h3>
+      <p data-i18n="creditExplain">Micro-credit is small-value borrowing designed for eligible financial needs.</p>
+      <button class="action primary" onclick="openLesson('credit')" data-i18n="openLesson">Open Lesson</button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🛡️</div>
+      <h3 data-i18n="understandInsurance">Understanding Insurance</h3>
+      <p data-i18n="insuranceLearnExplain">Insurance provides protection against specified risks according to policy terms.</p>
+      <button class="action primary" onclick="openLesson('insurance')" data-i18n="openLesson">Open Lesson</button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🚨</div>
+      <h3 data-i18n="avoidScams">Avoiding Financial Scams</h3>
+      <p data-i18n="scamLearnExplain">Never share OTP, PIN or banking passwords because someone asks urgently.</p>
+      <button class="action primary" onclick="openLesson('scam')" data-i18n="openLesson">Open Lesson</button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📶</div>
+      <h3 data-i18n="offlineMeaning">What Offline-first Means</h3>
+      <p data-i18n="offlineLearnExplain">Important actions can remain pending on the device until connectivity returns.</p>
+      <button class="action primary" onclick="openLesson('offline')" data-i18n="openLesson">Open Lesson</button>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section class="screen" id="screen-security">
+  <div class="screen-header">
+    <h1 data-i18n="security">Security</h1>
+    <p data-i18n="securityIntro">Keep your account and financial information protected.</p>
+  </div>
+  <div class="explain-box" data-i18n="securityExplain">
+    Never share your PIN, OTP or banking password. FinMitra also keeps financial actions
+    behind backend validation in the complete system.
+  </div>
+  <div class="grid">
+    <div class="card"><div class="card-icon">🔐</div><h3 data-i18n="pinSecurity">PIN Security</h3><p data-i18n="pinExplain">Use a PIN that others cannot easily guess.</p><button class="action" onclick="notifyUser()" data-i18n="review">Review</button></div>
+    <div class="card"><div class="card-icon">🚫</div><h3 data-i18n="freezeAccount">Freeze Account</h3><p data-i18n="freezeExplain">Use this prototype control if you suspect unauthorized access.</p><button class="action" onclick="freezeAccount()" data-i18n="freeze">Freeze</button></div>
+    <div class="card"><div class="card-icon">🧠</div><h3 data-i18n="safeHabits">Safe habits</h3><p data-i18n="safeHabitsExplain">Verify requests before sending money or sharing confidential information.</p></div>
+  </div>
+</section>
+
+<!-- ACCOUNT -->
+<section class="screen" id="screen-account">
+  <div class="screen-header">
+    <h1 data-i18n="account">Account</h1>
+    <p data-i18n="accountIntro">View your profile and FinMitra settings.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-icon">👤</div>
+      <h3 id="profileName">User</h3>
+      <div class="info-list">
+        <div class="info-row">📱 <span><b data-i18n="mobile">Mobile:</b> <span id="profileMobile">—</span></span></div>
+        <div class="info-row">💳 <span><b data-i18n="accountNumber">Account:</b> <span id="accountNumber">FM-000001</span></span></div>
+        <div class="info-row">🌐 <span><b data-i18n="language">Language:</b> <span id="profileLanguage">English</span></span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📶</div>
+      <h3 data-i18n="syncInformation">Sync Information</h3>
+      <div class="info-list">
+        <div class="info-row">📱 <span><b data-i18n="deviceQueue">Device queue:</b> <span id="accountQueue">0</span></span></div>
+        <div class="info-row">☁️ <span><b data-i18n="serverState">Server state:</b> <span id="accountServerState">Confirmed</span></span></div>
+        <div class="info-row">🕒 <span><b data-i18n="lastSync">Last sync:</b> <span id="accountLastSync">—</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+</div>
+</section>
+
+<!-- GLOBAL VOICE -->
+<button class="voice-float" onclick="toggleVoicePanel()">🎙️</button>
+
+<div class="voice-panel" id="voicePanel">
+  <div class="voice-top">
+    <div>
+      <h3>🎙️ <span data-i18n="voiceAssistant">Voice Assistant</span></h3>
+      <p data-i18n="voicePanelExplain">Ask about the current screen or speak an action.</p>
+    </div>
+    <button class="close" onclick="toggleVoicePanel()">×</button>
+  </div>
+
+  <select id="languageVoice" class="voice-lang" onchange="setLanguage(this.value)">
+    <option value="en">English</option>
+    <option value="ta">தமிழ்</option>
+    <option value="hi">हिन्दी</option>
+    <option value="te">తెలుగు</option>
+    <option value="ml">മലയാളം</option>
+  </select>
+
+  <div class="voice-actions">
+    <button class="voice-btn primary" onclick="startVoice()" data-i18n="speak">🎙 Speak</button>
+    <button class="voice-btn" onclick="explainCurrent()" data-i18n="explain">🔊 Explain</button>
+    <button class="voice-btn" onclick="nextStep()" data-i18n="nextStep">➡ Next Step</button>
+    <button class="voice-btn" onclick="replayVoice()" data-i18n="hearAgain">🔊 Hear Again</button>
+  </div>
+
+  <div class="voice-status" id="globalVoiceStatus"></div>
+  <div class="voice-transcript" id="globalTranscript"></div>
+
+  <div class="suggestion-row">
+    <button class="suggestion" onclick="voiceCommand('dashboard')" data-i18n="dashboard">Dashboard</button>
+    <button class="suggestion" onclick="voiceCommand('savings')" data-i18n="savings">Savings</button>
+    <button class="suggestion" onclick="voiceCommand('loans')" data-i18n="microcredit">Micro-credit</button>
+    <button class="suggestion" onclick="voiceCommand('insurance')" data-i18n="insurance">Insurance</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2 id="modalTitle">FinMitra</h2>
+      <button class="close" onclick="closeModal()">×</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* =========================================================
+   FINMITRA — TRANSLATIONS
+   ========================================================= */
+
+const T = {
+en:{
+ tagline:"Simple Finance. Everyone Included.",
+ splashDesc:"A lightweight financial-access platform designed for rural and underserved communities with low-end smartphones, limited connectivity, language barriers, and low digital literacy.",
+ badge1:"Multilingual",badge2:"Offline-first",badge3:"Voice-guided",badge4:"Safety-first",badge5:"Low-end friendly",
+ start:"Start FinMitra →",voiceAssistant:"Voice Assistant",speak:"🎙 Speak",explain:"🔊 Explain",
+ voiceReady:"Voice assistant is ready. You can speak or listen to the current screen.",
+ voiceHint:"Your spoken request will appear here.",
+ welcome:"Welcome to FinMitra",loginExplain:"Simple access to everyday financial services. Choose your language, type your details, or use voice guidance.",
+ secure:"Secure authentication",simpleNav:"Simple navigation",voiceLoginHelp:"You can use the voice button to fill your mobile number.",
+ login:"Login",createLogin:"Create New Login",fullName:"Full name",mobile:"Mobile number",pin:"PIN",
+ namePlaceholder:"Enter your name",mobilePlaceholder:"10-digit mobile number",pinPlaceholder:"Enter PIN",
+ voiceFill:"🎙 Fill using Voice",demoLogin:"Use Demo Account",prototypeAuth:"Prototype authentication. Do not use real banking credentials.",
+ main:"Main",tools:"Tools",support:"Support",dashboard:"Dashboard",payments:"Payments",savings:"Savings",
+ microcredit:"Micro-credit",insurance:"Insurance",bills:"Bills & Recharge",budget:"Budget",goals:"Savings Goals",
+ scam:"Scam Check",learn:"Learn",security:"Security",account:"Account",logout:"Logout",
+ dashboardIntro:"Your simple financial overview.",dashboardExplain:"This screen shows your available balance, savings progress, recent activity, and whether your device is connected.",
+ availableBalance:"Available balance",balanceExplain:"Updated from your current prototype account.",totalSavings:"Total savings",savingsExplain:"Money saved through the savings workflow.",
+ connection:"Connection",offlineExplain:"Pending actions remain on the device until sync.",quickActions:"Quick actions",quickExplain:"Use the most common financial tasks directly.",
+ saveMoney:"Save Money",sendReceive:"Send / Receive",payBill:"Pay Bill",checkMessage:"Check Message",savingsGoal:"Savings goal",
+ recentActivity:"Recent activity",noActivity:"No transactions yet.",
+ paymentsIntro:"Simple send and receive workflows for the prototype.",
+ paymentsExplain:"Payments in this prototype are simulated. No real money is transferred. Every action creates a clear status so the user knows what happened.",
+ sendMoney:"Send Money",sendExplain:"Enter a recipient and amount, review it, then confirm.",recipient:"Recipient",amount:"Amount",review:"Review",
+ receiveMoney:"Receive Money",receiveExplain:"Show your simulated payment ID to the sender.",copyId:"Copy ID",
+ savingsIntro:"Save money even when connectivity is temporarily unavailable.",
+ savingsExplainFull:"When the device is offline, the saving request is stored locally as pending. When internet returns, it is synchronized and confirmed.",
+ saveWorkflow:"Enter an amount → review → confirm → sync if required.",testOffline:"Test Offline",syncStatus:"Sync Status",
+ syncExplain:"Pending local actions are shown before server confirmation.",deviceQueue:"Device queue:",serverState:"Server state:",lastSync:"Last sync:",syncNow:"Sync Now",savingsHistory:"Savings history",
+ loanIntro:"Check a simulated eligibility result and follow the application process.",
+ loanExplain:"This prototype does not issue real credit. It demonstrates how a user can understand eligibility, submit details, review the application, and see its status.",
+ requestedAmount:"Requested amount",loanPurpose:"Loan purpose",education:"Education",food:"Food",utilities:"Utilities",other:"Other",
+ checkEligibility:"Check Eligibility",eligibility:"Eligibility",details:"Details",submit:"Submit",status:"Status",
+ loanDetailsTitle:"Application details",loanDetailsExplain:"Confirm the purpose and requested amount before continuing.",purpose:"Purpose",type:"Type",
+ prototypeSimulation:"Prototype simulation",continue:"Continue",change:"Change",
+ insuranceIntro:"Simple explanations of protection options.",
+ insuranceExplain:"Insurance means paying for protection against certain risks. The exact benefits, eligibility, exclusions, premium and documents depend on the policy.",
+ health:"Health",healthInsurance:"Health Insurance",healthSimple:"Helps cover eligible medical expenses according to the policy terms. In simple words: it can reduce the financial burden of eligible healthcare costs.",
+ whatItHelps:"What it helps with:",healthHelp:"Eligible hospital and medical expenses.",whoMayNeed:"Who may need it:",healthWho:"Families, older people and anyone wanting healthcare protection.",beforeApply:"Before applying:",healthBefore:"Check age, coverage, exclusions and premium.",
+ life:"Life",lifeInsurance:"Life Insurance",lifeSimple:"Provides financial protection to eligible beneficiaries if the insured person dies during the policy period, subject to policy terms.",
+ lifeHelp:"Financial support for eligible beneficiaries.",lifeWho:"People whose family depends on their income.",lifeBefore:"Check nominee details, exclusions, premium and policy period.",
+ documentsMayNeed:"Documents that may be requested",docIdentity:"Identity/address proof",docAge:"Age/date-of-birth proof",docMedical:"Medical records or reports, if required",docBank:"Bank details for eligible claim processing, if required",
+ docNominee:"Nominee details and relationship proof, if required",docIncome:"Income/occupation proof, depending on policy",learnMore:"Learn More",insuranceDocuments:"Documents",
+ documentsExplain:"Common documents may include identity, address, age and nominee-related proof depending on the insurance type.",
+ billsIntro:"Pay everyday bills through a simple review-and-confirm flow.",
+ billsExplain:"Select a bill, enter the amount, review the details and confirm. The payment is simulated in this prototype.",
+ electricity:"Electricity",electricityExplain:"Pay your electricity bill.",mobileRechargeExplain:"Recharge a mobile number.",water:"Water",waterExplain:"Pay your water bill.",gas:"Gas",gasExplain:"Pay a gas bill.",
+ dth:"DTH",dthExplain:"Recharge your TV service.",internet:"Internet",internetExplain:"Pay your internet service bill.",recharge:"Recharge",
+ budgetIntro:"Understand where your money is planned to go.",budgetExplain:"A budget helps you plan income and spending before money is used.",budgetFood:"Planned monthly amount.",home:"Home",budgetHome:"Rent and household needs.",budgetUtilities:"Electricity, water and services.",
+ goalsIntro:"Set aside money for something important.",goalsExplain:"A savings goal gives a clear target and helps you see your progress.",emergencyFund:"Emergency Fund",emergencyExplain:"Money kept aside for unexpected needs.",educationGoal:"Education",educationGoalExplain:"Save gradually for education-related expenses.",
+ scamIntro:"Check suspicious messages before taking action.",scamExplain:"Paste a message you received. FinMitra checks common warning signs such as OTP requests, urgent links, fake prizes and suspicious payment requests.",message:"Message",scamPlaceholder:"Paste a suspicious message here",analyze:"Analyze Message",
+ learnIntro:"Short lessons designed for first-time digital finance users.",learnExplain:"Choose a topic to understand what it means, why it matters, and what to remember. You can listen to the explanation in your selected language.",
+ whySavings:"Why Savings Matter",whySavingsExplain:"Savings create money that can be used for planned needs and unexpected situations.",understandCredit:"Understanding Micro-credit",creditExplain:"Micro-credit is small-value borrowing designed for eligible financial needs.",
+ understandInsurance:"Understanding Insurance",insuranceLearnExplain:"Insurance provides protection against specified risks according to policy terms.",avoidScams:"Avoiding Financial Scams",scamLearnExplain:"Never share OTP, PIN or banking passwords because someone asks urgently.",
+ offlineMeaning:"What Offline-first Means",offlineLearnExplain:"Important actions can remain pending on the device until connectivity returns.",openLesson:"Open Lesson",
+ securityIntro:"Keep your account and financial information protected.",securityExplain:"Never share your PIN, OTP or banking password. FinMitra also keeps financial actions behind backend validation in the complete system.",
+ pinSecurity:"PIN Security",pinExplain:"Use a PIN that others cannot easily guess.",freezeAccount:"Freeze Account",freezeExplain:"Use this prototype control if you suspect unauthorized access.",freeze:"Freeze",safeHabits:"Safe habits",safeHabitsExplain:"Verify requests before sending money or sharing confidential information.",
+ accountIntro:"View your profile and FinMitra settings.",accountNumber:"Account:",language:"Language:",syncInformation:"Sync Information",
+ voicePanelExplain:"Ask about the current screen or speak an action.",nextStep:"➡ Next Step",hearAgain:"🔊 Hear Again"
+},
+
+ta:{
+tagline:"எளிய நிதி. அனைவருக்கும்.",
+splashDesc:"கிராமப்புற மற்றும் நிதி சேவை குறைவாக கிடைக்கும் மக்களுக்காக உருவாக்கப்பட்ட எளிய நிதி தளம். குறைந்த திறன் கொண்ட மொபைல், குறைந்த இணையம், மொழி தடைகள் மற்றும் குறைந்த டிஜிட்டல் அறிவை கருத்தில் கொண்டது.",
+badge1:"பல மொழிகள்",badge2:"இணையம் இல்லாமலும்",badge3:"குரல் வழிகாட்டுதல்",badge4:"பாதுகாப்பு",badge5:"குறைந்த திறன் மொபைல்களுக்கு",
+start:"FinMitra தொடங்குங்கள் →",voiceAssistant:"குரல் உதவியாளர்",speak:"🎙 பேசுங்கள்",explain:"🔊 விளக்குங்கள்",
+voiceReady:"குரல் உதவியாளர் தயாராக உள்ளது. தற்போதைய திரையை கேட்கலாம் அல்லது பேசலாம்.",voiceHint:"நீங்கள் பேசும் கோரிக்கை இங்கே தோன்றும்.",
+welcome:"FinMitra-க்கு வரவேற்கிறோம்",loginExplain:"அன்றாட நிதி சேவைகளை எளிதாக பயன்படுத்தலாம். மொழியை தேர்வு செய்து விவரங்களை உள்ளிடுங்கள் அல்லது குரல் வழிகாட்டுதலை பயன்படுத்துங்கள்.",
+secure:"பாதுகாப்பான உள்நுழைவு",simpleNav:"எளிய வழிசெலுத்தல்",voiceLoginHelp:"குரல் பொத்தானை பயன்படுத்தி மொபைல் எண்ணை உள்ளிடலாம்.",
+login:"உள்நுழைவு",createLogin:"புதிய கணக்கு உருவாக்கு",fullName:"முழு பெயர்",mobile:"மொபைல் எண்",pin:"ரகசிய எண்",
+namePlaceholder:"உங்கள் பெயரை உள்ளிடுங்கள்",mobilePlaceholder:"10 இலக்க மொபைல் எண்",pinPlaceholder:"ரகசிய எண்ணை உள்ளிடுங்கள்",
+voiceFill:"🎙 குரலில் நிரப்புங்கள்",demoLogin:"டெமோ கணக்கைப் பயன்படுத்து",prototypeAuth:"இது ஒரு முன்மாதிரி உள்நுழைவு. உண்மையான வங்கி விவரங்களை பயன்படுத்த வேண்டாம்.",
+main:"முக்கியம்",tools:"கருவிகள்",support:"உதவி",dashboard:"முகப்பு",payments:"பணம் அனுப்புதல்",savings:"சேமிப்பு",microcredit:"சிறு கடன்",insurance:"காப்பீடு",bills:"பில்கள் & ரீசார்ஜ்",budget:"பட்ஜெட்",goals:"சேமிப்பு இலக்குகள்",scam:"மோசடி சரிபார்ப்பு",learn:"கற்றல்",security:"பாதுகாப்பு",account:"கணக்கு",logout:"வெளியேறு",
+dashboardIntro:"உங்கள் நிதி நிலையை எளிதாக பார்க்கலாம்.",dashboardExplain:"இந்த திரையில் இருப்பு, சேமிப்பு முன்னேற்றம், சமீபத்திய செயல்கள் மற்றும் இணைய இணைப்பு நிலையை பார்க்கலாம்.",availableBalance:"கிடைக்கும் இருப்பு",balanceExplain:"உங்கள் முன்மாதிரி கணக்கின் தற்போதைய நிலை.",totalSavings:"மொத்த சேமிப்பு",savingsExplain:"சேமிப்பு செயல்முறை மூலம் சேமிக்கப்பட்ட தொகை.",connection:"இணைப்பு",offlineExplain:"இணையம் வரும் வரை நிலுவை செயல்கள் மொபைலில் இருக்கும்.",quickActions:"விரைவு செயல்கள்",quickExplain:"அடிக்கடி பயன்படுத்தும் நிதி செயல்களை நேரடியாக தேர்வு செய்யலாம்.",saveMoney:"பணம் சேமி",sendReceive:"அனுப்பு / பெறு",payBill:"பில் செலுத்து",checkMessage:"செய்தியை சரிபார்",savingsGoal:"சேமிப்பு இலக்கு",recentActivity:"சமீபத்திய செயல்கள்",noActivity:"இன்னும் பரிவர்த்தனைகள் இல்லை.",
+paymentsIntro:"முன்மாதிரியில் பணம் அனுப்பவும் பெறவும் எளிய செயல்முறை.",paymentsExplain:"இது முன்மாதிரி பணப்பரிவர்த்தனை. உண்மையான பணம் மாற்றப்படாது. ஒவ்வொரு செயலுக்கும் தெளிவான நிலை காட்டப்படும்.",sendMoney:"பணம் அனுப்பு",sendExplain:"பெறுநர் மற்றும் தொகையை உள்ளிட்டு, சரிபார்த்து உறுதிப்படுத்துங்கள்.",recipient:"பெறுநர்",amount:"தொகை",review:"சரிபார்",receiveMoney:"பணம் பெறு",receiveExplain:"அனுப்புபவரிடம் உங்கள் முன்மாதிரி பணம் பெறும் அடையாளத்தை காட்டுங்கள்.",copyId:"அடையாளத்தை நகலெடு",
+savingsIntro:"இணையம் தற்காலிகமாக இல்லாவிட்டாலும் பணத்தை சேமிக்கலாம்.",savingsExplainFull:"இணையம் இல்லாதபோது சேமிப்பு கோரிக்கை மொபைலில் நிலுவையாக சேமிக்கப்படும். இணையம் வந்ததும் அது ஒத்திசைக்கப்பட்டு உறுதி செய்யப்படும்.",saveWorkflow:"தொகை → சரிபார் → உறுதிப்படுத்து → தேவையெனில் ஒத்திசை.",testOffline:"இணையம் இல்லாமல் சோதனை",syncStatus:"ஒத்திசைவு நிலை",syncExplain:"சர்வர் உறுதிப்படுத்துவதற்கு முன் மொபைலில் உள்ள நிலுவை செயல்கள் காட்டப்படும்.",deviceQueue:"மொபைல் நிலுவை:",serverState:"சர்வர் நிலை:",lastSync:"கடைசி ஒத்திசைவு:",syncNow:"இப்போது ஒத்திசை",savingsHistory:"சேமிப்பு வரலாறு",
+loanIntro:"முன்மாதிரி தகுதி முடிவை பார்த்து கடன் விண்ணப்ப செயல்முறையை தொடருங்கள்.",loanExplain:"இது உண்மையான கடன் வழங்காது. தகுதியை புரிந்து கொள்வது, விவரங்களை சமர்ப்பிப்பது, விண்ணப்பத்தை சரிபார்ப்பது மற்றும் நிலையை பார்ப்பது எப்படி என்பதை காட்டுகிறது.",requestedAmount:"கேட்கும் தொகை",loanPurpose:"கடன் காரணம்",education:"கல்வி",food:"உணவு",utilities:"அத்தியாவசிய சேவைகள்",other:"மற்றவை",checkEligibility:"தகுதியை சரிபார்",eligibility:"தகுதி",details:"விவரங்கள்",submit:"சமர்ப்பி",status:"நிலை",loanDetailsTitle:"விண்ணப்ப விவரங்கள்",loanDetailsExplain:"தொடர்வதற்கு முன் காரணத்தையும் தொகையையும் உறுதிப்படுத்துங்கள்.",purpose:"காரணம்",type:"வகை",prototypeSimulation:"முன்மாதிரி",continue:"தொடரவும்",change:"மாற்று",
+insuranceIntro:"புரிந்து கொள்ள எளிய காப்பீட்டு விளக்கங்கள்.",insuranceExplain:"காப்பீடு என்பது சில அபாயங்களிலிருந்து பாதுகாப்புக்காக செலுத்தப்படும் தொகை. நன்மைகள், தகுதி, விதிவிலக்குகள், கட்டணம் மற்றும் ஆவணங்கள் பாலிசியை பொறுத்தது.",health:"சுகாதாரம்",healthInsurance:"மருத்துவ காப்பீடு",healthSimple:"பாலிசி விதிமுறைகளுக்கு உட்பட்ட தகுதியான மருத்துவ செலவுகளை சமாளிக்க உதவும். எளிய வார்த்தைகளில், மருத்துவ செலவின் நிதிச்சுமையை குறைக்க உதவலாம்.",whatItHelps:"எதற்கு உதவும்:",healthHelp:"தகுதியான மருத்துவமனை மற்றும் மருத்துவ செலவுகள்.",whoMayNeed:"யாருக்கு உதவும்:",healthWho:"குடும்பங்கள், வயதானவர்கள் மற்றும் மருத்துவ பாதுகாப்பு விரும்புபவர்கள்.",beforeApply:"விண்ணப்பிக்கும் முன்:",healthBefore:"வயது, பாதுகாப்பு, விதிவிலக்குகள் மற்றும் கட்டணத்தை சரிபார்க்கவும்.",life:"வாழ்க்கை",lifeInsurance:"ஆயுள் காப்பீடு",lifeSimple:"பாலிசி காலத்தில் காப்பீடு பெற்றவர் இறந்தால், பாலிசி விதிமுறைகளுக்கு உட்பட்டு தகுதியான குடும்பத்தினருக்கு நிதி பாதுகாப்பு வழங்குகிறது.",lifeHelp:"தகுதியான குடும்பத்தினருக்கு நிதி உதவி.",lifeWho:"தங்கள் வருமானத்தை குடும்பம் சார்ந்திருப்பவர்கள்.",lifeBefore:"நாமினி விவரங்கள், விதிவிலக்குகள், கட்டணம் மற்றும் பாலிசி காலத்தை சரிபார்க்கவும்.",documentsMayNeed:"கேட்கப்படக்கூடிய ஆவணங்கள்",docIdentity:"அடையாளம் / முகவரி சான்று",docAge:"வயது / பிறந்த தேதி சான்று",docMedical:"தேவைப்பட்டால் மருத்துவ அறிக்கைகள்",docBank:"தேவைப்பட்டால் வங்கி விவரங்கள்",docNominee:"நாமினி விவரங்கள் மற்றும் உறவு சான்று",docIncome:"பாலிசியை பொறுத்து வருமானம் / தொழில் சான்று",learnMore:"மேலும் அறிக",insuranceDocuments:"ஆவணங்கள்",documentsExplain:"காப்பீட்டு வகையை பொறுத்து அடையாளம், முகவரி, வயது மற்றும் நாமினி தொடர்பான ஆவணங்கள் கேட்கப்படலாம்.",
+billsIntro:"அன்றாட பில்களை சரிபார்த்து உறுதிப்படுத்தும் எளிய முறையில் செலுத்தலாம்.",billsExplain:"பில்லை தேர்வு செய்து தொகையை உள்ளிடுங்கள், விவரங்களை சரிபார்த்து உறுதிப்படுத்துங்கள். இது முன்மாதிரி செயல்முறை.",electricity:"மின்சாரம்",electricityExplain:"மின்சார பில் செலுத்துங்கள்.",mobileRechargeExplain:"மொபைல் எண்ணை ரீசார்ஜ் செய்யுங்கள்.",water:"தண்ணீர்",waterExplain:"தண்ணீர் பில் செலுத்துங்கள்.",gas:"எரிவாயு",gasExplain:"எரிவாயு பில் செலுத்துங்கள்.",dth:"டிடிஎச்",dthExplain:"தொலைக்காட்சி சேவையை ரீசார்ஜ் செய்யுங்கள்.",internet:"இணையம்",internetExplain:"இணைய சேவை பில் செலுத்துங்கள்.",recharge:"ரீசார்ஜ்",
+budgetIntro:"உங்கள் பணம் எங்கு செல்கிறது என்பதை திட்டமிடுங்கள்.",budgetExplain:"பணம் செலவாகும் முன் வருமானத்தையும் செலவையும் திட்டமிட பட்ஜெட் உதவும்.",budgetFood:"மாத திட்டத் தொகை.",home:"வீடு",budgetHome:"வாடகை மற்றும் வீட்டு தேவைகள்.",budgetUtilities:"மின்சாரம், தண்ணீர் மற்றும் சேவைகள்.",goalsIntro:"முக்கியமான தேவைக்காக பணத்தை ஒதுக்குங்கள்.",goalsExplain:"சேமிப்பு இலக்கு ஒரு தெளிவான தொகையை நிர்ணயித்து முன்னேற்றத்தை காட்டுகிறது.",emergencyFund:"அவசர நிதி",emergencyExplain:"எதிர்பாராத தேவைகளுக்காக ஒதுக்கும் பணம்.",educationGoal:"கல்வி",educationGoalExplain:"கல்வி செலவுகளுக்காக சிறிது சிறிதாக சேமிக்கலாம்.",
+scamIntro:"சந்தேகமான செய்திகளை நடவடிக்கை எடுப்பதற்கு முன் சரிபார்க்கவும்.",scamExplain:"நீங்கள் பெற்ற செய்தியை உள்ளிடுங்கள். OTP கேட்பது, அவசர இணைப்புகள், போலி பரிசுகள் மற்றும் சந்தேகமான பண கோரிக்கைகள் போன்ற எச்சரிக்கை அறிகுறிகளை சரிபார்க்கும்.",message:"செய்தி",scamPlaceholder:"சந்தேகமான செய்தியை இங்கே உள்ளிடுங்கள்",analyze:"செய்தியை பகுப்பாய்வு செய்",
+learnIntro:"முதல் முறையாக டிஜிட்டல் நிதியை பயன்படுத்துபவர்களுக்கான சிறு பாடங்கள்.",learnExplain:"ஒரு தலைப்பை தேர்வு செய்து அதன் பொருள், முக்கியத்துவம் மற்றும் நினைவில் கொள்ள வேண்டியதை அறியுங்கள். தேர்ந்தெடுத்த மொழியில் கேட்கலாம்.",whySavings:"சேமிப்பு ஏன் முக்கியம்",whySavingsExplain:"திட்டமிட்ட தேவைகள் மற்றும் எதிர்பாராத சூழ்நிலைகளுக்கு சேமிப்பு உதவும்.",understandCredit:"சிறு கடனை புரிந்து கொள்வது",creditExplain:"சிறு கடன் என்பது தகுதியான நிதி தேவைகளுக்காக பெறப்படும் குறைந்த தொகை கடன்.",understandInsurance:"காப்பீட்டை புரிந்து கொள்வது",insuranceLearnExplain:"குறிப்பிட்ட அபாயங்களுக்கு பாலிசி விதிமுறைகளின்படி பாதுகாப்பு வழங்குகிறது.",avoidScams:"நிதி மோசடிகளை தவிர்ப்பது",scamLearnExplain:"யாராவது அவசரமாக கேட்டாலும் OTP, PIN அல்லது வங்கி கடவுச்சொல்லை பகிர வேண்டாம்.",offlineMeaning:"இணையம் இல்லாத செயல்முறை என்றால் என்ன",offlineLearnExplain:"இணையம் வரும் வரை முக்கிய செயல்கள் மொபைலில் நிலுவையாக இருக்கலாம்.",openLesson:"பாடத்தை திற",
+securityIntro:"உங்கள் கணக்கு மற்றும் நிதி தகவல்களை பாதுகாப்பாக வைத்திருங்கள்.",securityExplain:"PIN, OTP அல்லது வங்கி கடவுச்சொல்லை யாரிடமும் பகிர வேண்டாம். முழு அமைப்பில் நிதி செயல்கள் backend சரிபார்ப்புக்குப் பிறகே நடைபெறும்.",pinSecurity:"PIN பாதுகாப்பு",pinExplain:"மற்றவர்கள் எளிதாக கண்டுபிடிக்க முடியாத PIN பயன்படுத்துங்கள்.",freezeAccount:"கணக்கை முடக்கு",freezeExplain:"அனுமதியற்ற அணுகல் இருப்பதாக சந்தேகம் இருந்தால் இந்த முன்மாதிரி கட்டுப்பாட்டை பயன்படுத்தலாம்.",freeze:"முடக்கு",safeHabits:"பாதுகாப்பான பழக்கங்கள்",safeHabitsExplain:"பணம் அனுப்புவதற்கு முன் கோரிக்கையை சரிபார்க்கவும்.",accountIntro:"உங்கள் சுயவிவரம் மற்றும் FinMitra அமைப்புகளை பார்க்கலாம்.",accountNumber:"கணக்கு:",language:"மொழி:",syncInformation:"ஒத்திசைவு தகவல்",voicePanelExplain:"தற்போதைய திரையை பற்றி கேளுங்கள் அல்லது ஒரு செயல்பாட்டை சொல்லுங்கள்.",nextStep:"➡ அடுத்த படி",hearAgain:"🔊 மீண்டும் கேள்"
+},
+
+hi:{
+tagline:"सरल वित्त। सबके लिए।",
+splashDesc:"ग्रामीण और वंचित समुदायों के लिए बनाया गया हल्का वित्तीय मंच। कम क्षमता वाले फोन, सीमित इंटरनेट, भाषा की बाधा और कम डिजिटल साक्षरता को ध्यान में रखता है।",
+badge1:"बहुभाषी",badge2:"ऑफलाइन-फर्स्ट",badge3:"आवाज़ से मार्गदर्शन",badge4:"सुरक्षा-प्रथम",badge5:"कम क्षमता वाले फोन",
+start:"FinMitra शुरू करें →",voiceAssistant:"वॉइस असिस्टेंट",speak:"🎙 बोलें",explain:"🔊 समझाएँ",voiceReady:"वॉइस असिस्टेंट तैयार है। आप वर्तमान स्क्रीन सुन सकते हैं या बोल सकते हैं।",voiceHint:"आपकी आवाज़ से कही गई बात यहाँ दिखाई देगी।",
+welcome:"FinMitra में आपका स्वागत है",loginExplain:"रोज़मर्रा की वित्तीय सेवाओं का सरल उपयोग। भाषा चुनें, विवरण भरें या आवाज़ से मार्गदर्शन लें।",secure:"सुरक्षित लॉगिन",simpleNav:"सरल नेविगेशन",voiceLoginHelp:"वॉइस बटन से मोबाइल नंबर भर सकते हैं।",login:"लॉगिन",createLogin:"नया लॉगिन बनाएँ",fullName:"पूरा नाम",mobile:"मोबाइल नंबर",pin:"पिन",namePlaceholder:"अपना नाम लिखें",mobilePlaceholder:"10 अंकों का मोबाइल नंबर",pinPlaceholder:"पिन लिखें",voiceFill:"🎙 आवाज़ से भरें",demoLogin:"डेमो अकाउंट इस्तेमाल करें",prototypeAuth:"यह प्रोटोटाइप लॉगिन है। वास्तविक बैंकिंग जानकारी इस्तेमाल न करें।",
+main:"मुख्य",tools:"उपकरण",support:"सहायता",dashboard:"डैशबोर्ड",payments:"भुगतान",savings:"बचत",microcredit:"माइक्रो-क्रेडिट",insurance:"बीमा",bills:"बिल और रिचार्ज",budget:"बजट",goals:"बचत लक्ष्य",scam:"धोखाधड़ी जाँच",learn:"सीखें",security:"सुरक्षा",account:"खाता",logout:"लॉगआउट",
+dashboardIntro:"आपकी वित्तीय स्थिति एक नज़र में।",dashboardExplain:"यह स्क्रीन उपलब्ध राशि, बचत की प्रगति, हाल की गतिविधि और इंटरनेट स्थिति दिखाती है।",availableBalance:"उपलब्ध राशि",balanceExplain:"आपके प्रोटोटाइप खाते की वर्तमान स्थिति।",totalSavings:"कुल बचत",savingsExplain:"बचत प्रक्रिया से जमा की गई राशि।",connection:"कनेक्शन",offlineExplain:"सिंक होने तक लंबित कार्य फोन में सुरक्षित रहते हैं।",quickActions:"त्वरित कार्य",quickExplain:"आम वित्तीय कार्य सीधे चुनें।",saveMoney:"पैसे बचाएँ",sendReceive:"भेजें / प्राप्त करें",payBill:"बिल भरें",checkMessage:"संदेश जाँचें",savingsGoal:"बचत लक्ष्य",recentActivity:"हाल की गतिविधि",noActivity:"अभी कोई लेनदेन नहीं।",
+paymentsIntro:"प्रोटोटाइप में पैसे भेजने और प्राप्त करने की सरल प्रक्रिया।",paymentsExplain:"यह प्रोटोटाइप भुगतान का अनुकरण करता है। वास्तविक पैसे का स्थानांतरण नहीं होता। हर कार्य का स्पष्ट स्टेटस दिखता है।",sendMoney:"पैसे भेजें",sendExplain:"प्राप्तकर्ता और राशि भरें, जाँचें और पुष्टि करें।",recipient:"प्राप्तकर्ता",amount:"राशि",review:"जाँचें",receiveMoney:"पैसे प्राप्त करें",receiveExplain:"भेजने वाले को अपना प्रोटोटाइप भुगतान आईडी दिखाएँ।",copyId:"आईडी कॉपी करें",
+savingsIntro:"इंटरनेट अस्थायी रूप से उपलब्ध न होने पर भी बचत करें।",savingsExplainFull:"ऑफलाइन होने पर बचत अनुरोध फोन में लंबित रखा जाता है। इंटरनेट आने पर वह सिंक होकर पुष्टि होता है।",saveWorkflow:"राशि → जाँच → पुष्टि → आवश्यकता होने पर सिंक।",testOffline:"ऑफलाइन जाँचें",syncStatus:"सिंक स्थिति",syncExplain:"सर्वर पुष्टि से पहले फोन में लंबित कार्य दिखाई देते हैं।",deviceQueue:"फोन की कतार:",serverState:"सर्वर स्थिति:",lastSync:"अंतिम सिंक:",syncNow:"अभी सिंक करें",savingsHistory:"बचत इतिहास",
+loanIntro:"डेमो पात्रता देखें और आवेदन प्रक्रिया पूरी करें।",loanExplain:"यह प्रोटोटाइप वास्तविक ऋण नहीं देता। यह पात्रता समझने, विवरण देने, आवेदन जाँचने और स्थिति देखने की प्रक्रिया दिखाता है।",requestedAmount:"माँगी गई राशि",loanPurpose:"ऋण का उद्देश्य",education:"शिक्षा",food:"भोजन",utilities:"उपयोगिताएँ",other:"अन्य",checkEligibility:"पात्रता जाँचें",eligibility:"पात्रता",details:"विवरण",submit:"जमा करें",status:"स्थिति",loanDetailsTitle:"आवेदन विवरण",loanDetailsExplain:"आगे बढ़ने से पहले उद्देश्य और राशि की पुष्टि करें।",purpose:"उद्देश्य",type:"प्रकार",prototypeSimulation:"प्रोटोटाइप",continue:"जारी रखें",change:"बदलें",
+insuranceIntro:"बीमा विकल्पों की सरल जानकारी।",insuranceExplain:"बीमा कुछ जोखिमों से सुरक्षा के लिए लिया जाता है। लाभ, पात्रता, अपवाद, प्रीमियम और दस्तावेज़ पॉलिसी पर निर्भर करते हैं।",health:"स्वास्थ्य",healthInsurance:"स्वास्थ्य बीमा",healthSimple:"पॉलिसी की शर्तों के अनुसार पात्र चिकित्सा खर्चों में मदद करता है। सरल शब्दों में, यह योग्य स्वास्थ्य खर्च का आर्थिक बोझ कम कर सकता है।",whatItHelps:"किसमें मदद:",healthHelp:"पात्र अस्पताल और चिकित्सा खर्च।",whoMayNeed:"किसे जरूरत हो सकती है:",healthWho:"परिवार, बुज़ुर्ग और स्वास्थ्य सुरक्षा चाहने वाले लोग।",beforeApply:"आवेदन से पहले:",healthBefore:"उम्र, कवरेज, अपवाद और प्रीमियम जाँचें।",life:"जीवन",lifeInsurance:"जीवन बीमा",lifeSimple:"पॉलिसी अवधि में बीमित व्यक्ति की मृत्यु होने पर, पॉलिसी की शर्तों के अनुसार पात्र लाभार्थियों को वित्तीय सुरक्षा देता है।",lifeHelp:"पात्र लाभार्थियों को वित्तीय सहायता।",lifeWho:"जिनके परिवार की आय पर निर्भरता है।",lifeBefore:"नामांकित व्यक्ति, अपवाद, प्रीमियम और पॉलिसी अवधि जाँचें।",documentsMayNeed:"माँगे जा सकने वाले दस्तावेज़",docIdentity:"पहचान / पता प्रमाण",docAge:"उम्र / जन्म तिथि प्रमाण",docMedical:"जरूरत होने पर चिकित्सा रिपोर्ट",docBank:"जरूरत होने पर बैंक विवरण",docNominee:"नामांकित व्यक्ति और संबंध प्रमाण",docIncome:"पॉलिसी के अनुसार आय / व्यवसाय प्रमाण",learnMore:"और जानें",insuranceDocuments:"दस्तावेज़",documentsExplain:"बीमा के प्रकार के अनुसार पहचान, पता, उम्र और नामांकित व्यक्ति से जुड़े दस्तावेज़ माँगे जा सकते हैं।",
+billsIntro:"साधारण जाँच और पुष्टि प्रक्रिया से रोज़मर्रा के बिल भरें।",billsExplain:"बिल चुनें, राशि भरें, विवरण जाँचें और पुष्टि करें। यह प्रोटोटाइप भुगतान है।",electricity:"बिजली",electricityExplain:"बिजली का बिल भरें।",mobileRechargeExplain:"मोबाइल नंबर रिचार्ज करें।",water:"पानी",waterExplain:"पानी का बिल भरें।",gas:"गैस",gasExplain:"गैस का बिल भरें।",dth:"डीटीएच",dthExplain:"टीवी सेवा रिचार्ज करें।",internet:"इंटरनेट",internetExplain:"इंटरनेट सेवा का बिल भरें।",recharge:"रिचार्ज",
+budgetIntro:"अपने पैसे की योजना समझें।",budgetExplain:"बजट से खर्च होने से पहले आय और खर्च की योजना बनाई जा सकती है।",budgetFood:"मासिक नियोजित राशि।",home:"घर",budgetHome:"किराया और घरेलू जरूरतें।",budgetUtilities:"बिजली, पानी और सेवाएँ।",goalsIntro:"किसी महत्वपूर्ण जरूरत के लिए पैसे अलग रखें।",goalsExplain:"बचत लक्ष्य एक स्पष्ट रकम और आपकी प्रगति दिखाता है।",emergencyFund:"आपातकालीन निधि",emergencyExplain:"अचानक आने वाली जरूरतों के लिए अलग रखा पैसा।",educationGoal:"शिक्षा",educationGoalExplain:"शिक्षा से जुड़े खर्चों के लिए धीरे-धीरे बचत करें।",
+scamIntro:"कार्रवाई करने से पहले संदिग्ध संदेश जाँचें।",scamExplain:"आपको मिला संदेश डालें। FinMitra OTP माँगने, जल्दी वाले लिंक, नकली इनाम और संदिग्ध भुगतान जैसे संकेतों को जाँचता है।",message:"संदेश",scamPlaceholder:"संदिग्ध संदेश यहाँ डालें",analyze:"संदेश जाँचें",
+learnIntro:"पहली बार डिजिटल वित्त उपयोग करने वालों के लिए छोटे पाठ।",learnExplain:"कोई विषय चुनें और उसका अर्थ, महत्व और याद रखने वाली बातें समझें। चयनित भाषा में सुन सकते हैं।",whySavings:"बचत क्यों जरूरी है",whySavingsExplain:"बचत योजनाबद्ध और अचानक आने वाली जरूरतों के लिए मदद करती है।",understandCredit:"माइक्रो-क्रेडिट समझें",creditExplain:"माइक्रो-क्रेडिट पात्र वित्तीय जरूरतों के लिए छोटी राशि का ऋण है।",understandInsurance:"बीमा समझें",insuranceLearnExplain:"बीमा पॉलिसी की शर्तों के अनुसार कुछ जोखिमों से सुरक्षा देता है।",avoidScams:"वित्तीय धोखाधड़ी से बचें",scamLearnExplain:"कोई व्यक्ति जल्दी करने को कहे तब भी OTP, PIN या बैंक पासवर्ड साझा न करें।",offlineMeaning:"ऑफलाइन-फर्स्ट का मतलब",offlineLearnExplain:"इंटरनेट वापस आने तक महत्वपूर्ण कार्य फोन में लंबित रह सकते हैं।",openLesson:"पाठ खोलें",
+securityIntro:"अपने खाते और वित्तीय जानकारी को सुरक्षित रखें।",securityExplain:"PIN, OTP या बैंक पासवर्ड किसी के साथ साझा न करें। पूरी प्रणाली में वित्तीय कार्य backend सत्यापन के बाद ही होते हैं।",pinSecurity:"PIN सुरक्षा",pinExplain:"ऐसा PIN रखें जिसे दूसरे आसानी से न समझ सकें।",freezeAccount:"खाता फ्रीज़ करें",freezeExplain:"अनधिकृत पहुँच का संदेह हो तो इस प्रोटोटाइप नियंत्रण का उपयोग करें।",freeze:"फ्रीज़",safeHabits:"सुरक्षित आदतें",safeHabitsExplain:"पैसे भेजने या निजी जानकारी साझा करने से पहले अनुरोध जाँचें।",accountIntro:"अपनी प्रोफ़ाइल और FinMitra सेटिंग देखें।",accountNumber:"खाता:",language:"भाषा:",syncInformation:"सिंक जानकारी",voicePanelExplain:"वर्तमान स्क्रीन के बारे में पूछें या कोई कार्य बोलें।",nextStep:"➡ अगला चरण",hearAgain:"🔊 फिर सुनें"
+},
+
+te:{
+tagline:"సులభమైన ఆర్థిక సేవలు. అందరికీ.",
+splashDesc:"గ్రామీణ మరియు సేవలు తక్కువగా అందే ప్రజల కోసం రూపొందించిన తేలికైన ఆర్థిక వేదిక. తక్కువ సామర్థ్యం ఉన్న ఫోన్లు, పరిమిత ఇంటర్నెట్, భాషా అడ్డంకులు మరియు తక్కువ డిజిటల్ అవగాహనను దృష్టిలో ఉంచుతుంది.",
+badge1:"బహుభాషా",badge2:"ఆఫ్‌లైన్-ఫస్ట్",badge3:"వాయిస్ మార్గదర్శకం",badge4:"భద్రత",badge5:"తక్కువ సామర్థ్యం ఉన్న ఫోన్లకు",
+start:"FinMitra ప్రారంభించండి →",voiceAssistant:"వాయిస్ అసిస్టెంట్",speak:"🎙 మాట్లాడండి",explain:"🔊 వివరించండి",voiceReady:"వాయిస్ అసిస్టెంట్ సిద్ధంగా ఉంది. ప్రస్తుత స్క్రీన్‌ను వినవచ్చు లేదా మాట్లాడవచ్చు.",voiceHint:"మీరు మాట్లాడిన అభ్యర్థన ఇక్కడ కనిపిస్తుంది.",
+welcome:"FinMitra కు స్వాగతం",loginExplain:"రోజువారీ ఆర్థిక సేవలను సులభంగా ఉపయోగించండి. భాషను ఎంచుకుని వివరాలు ఇవ్వండి లేదా వాయిస్ మార్గదర్శకాన్ని ఉపయోగించండి.",secure:"సురక్షిత లాగిన్",simpleNav:"సులభమైన నావిగేషన్",voiceLoginHelp:"వాయిస్ బటన్‌తో మొబైల్ నంబర్‌ను నమోదు చేయవచ్చు.",login:"లాగిన్",createLogin:"కొత్త లాగిన్ సృష్టించండి",fullName:"పూర్తి పేరు",mobile:"మొబైల్ నంబర్",pin:"పిన్",namePlaceholder:"మీ పేరు నమోదు చేయండి",mobilePlaceholder:"10 అంకెల మొబైల్ నంబర్",pinPlaceholder:"పిన్ నమోదు చేయండి",voiceFill:"🎙 వాయిస్‌తో నింపండి",demoLogin:"డెమో ఖాతాను ఉపయోగించండి",prototypeAuth:"ఇది ప్రోటోటైప్ లాగిన్. నిజమైన బ్యాంకింగ్ వివరాలను ఉపయోగించవద్దు.",
+main:"ప్రధానం",tools:"సాధనాలు",support:"సహాయం",dashboard:"డ్యాష్‌బోర్డ్",payments:"చెల్లింపులు",savings:"పొదుపు",microcredit:"మైక్రో-క్రెడిట్",insurance:"బీమా",bills:"బిల్లులు & రీచార్జ్",budget:"బడ్జెట్",goals:"పొదుపు లక్ష్యాలు",scam:"మోసం తనిఖీ",learn:"నేర్చుకోండి",security:"భద్రత",account:"ఖాతా",logout:"లాగ్ అవుట్",
+dashboardIntro:"మీ ఆర్థిక స్థితిని సులభంగా చూడండి.",dashboardExplain:"ఈ స్క్రీన్ అందుబాటులో ఉన్న బ్యాలెన్స్, పొదుపు పురోగతి, ఇటీవలి కార్యకలాపాలు మరియు ఇంటర్నెట్ స్థితిని చూపిస్తుంది.",availableBalance:"అందుబాటులో ఉన్న బ్యాలెన్స్",balanceExplain:"మీ ప్రోటోటైప్ ఖాతా ప్రస్తుత స్థితి.",totalSavings:"మొత్తం పొదుపు",savingsExplain:"పొదుపు ప్రక్రియ ద్వారా సేవ్ చేసిన మొత్తం.",connection:"కనెక్షన్",offlineExplain:"సింక్ అయ్యే వరకు పెండింగ్ పనులు ఫోన్‌లో ఉంటాయి.",quickActions:"త్వరిత చర్యలు",quickExplain:"సాధారణ ఆర్థిక పనులను నేరుగా ఎంచుకోండి.",saveMoney:"డబ్బు సేవ్ చేయండి",sendReceive:"పంపండి / పొందండి",payBill:"బిల్ చెల్లించండి",checkMessage:"సందేశాన్ని తనిఖీ చేయండి",savingsGoal:"పొదుపు లక్ష్యం",recentActivity:"ఇటీవలి కార్యకలాపాలు",noActivity:"ఇంకా లావాదేవీలు లేవు.",
+paymentsIntro:"ప్రోటోటైప్‌లో డబ్బు పంపడం మరియు పొందడం కోసం సులభమైన ప్రక్రియ.",paymentsExplain:"ఇది చెల్లింపు యొక్క ప్రోటోటైప్. నిజమైన డబ్బు బదిలీ కాదు. ప్రతి చర్యకు స్పష్టమైన స్థితి చూపబడుతుంది.",sendMoney:"డబ్బు పంపండి",sendExplain:"గ్రహీత మరియు మొత్తాన్ని నమోదు చేసి, తనిఖీ చేసి నిర్ధారించండి.",recipient:"గ్రహీత",amount:"మొత్తం",review:"తనిఖీ చేయండి",receiveMoney:"డబ్బు పొందండి",receiveExplain:"పంపేవారికి మీ ప్రోటోటైప్ చెల్లింపు ID చూపించండి.",copyId:"ID కాపీ చేయండి",
+savingsIntro:"ఇంటర్నెట్ తాత్కాలికంగా లేకపోయినా డబ్బు సేవ్ చేయండి.",savingsExplainFull:"ఆఫ్‌లైన్‌లో ఉన్నప్పుడు పొదుపు అభ్యర్థన ఫోన్‌లో పెండింగ్‌గా ఉంటుంది. ఇంటర్నెట్ వచ్చిన తర్వాత సింక్ అయి నిర్ధారించబడుతుంది.",saveWorkflow:"మొత్తం → తనిఖీ → నిర్ధారణ → అవసరమైతే సింక్.",testOffline:"ఆఫ్‌లైన్ పరీక్ష",syncStatus:"సింక్ స్థితి",syncExplain:"సర్వర్ నిర్ధారణకు ముందు ఫోన్‌లో పెండింగ్ పనులు కనిపిస్తాయి.",deviceQueue:"ఫోన్ క్యూ:",serverState:"సర్వర్ స్థితి:",lastSync:"చివరి సింక్:",syncNow:"ఇప్పుడే సింక్ చేయండి",savingsHistory:"పొదుపు చరిత్ర",
+loanIntro:"ప్రోటోటైప్ అర్హతను తనిఖీ చేసి దరఖాస్తు ప్రక్రియను కొనసాగించండి.",loanExplain:"ఈ ప్రోటోటైప్ నిజమైన రుణం ఇవ్వదు. అర్హతను అర్థం చేసుకోవడం, వివరాలు ఇవ్వడం, దరఖాస్తును తనిఖీ చేయడం మరియు స్థితిని చూడడం ఎలా అనేది చూపిస్తుంది.",requestedAmount:"కావాల్సిన మొత్తం",loanPurpose:"రుణ ఉద్దేశ్యం",education:"విద్య",food:"ఆహారం",utilities:"అవసరమైన సేవలు",other:"ఇతర",checkEligibility:"అర్హత తనిఖీ",eligibility:"అర్హత",details:"వివరాలు",submit:"సమర్పించండి",status:"స్థితి",loanDetailsTitle:"దరఖాస్తు వివరాలు",loanDetailsExplain:"కొనసాగించే ముందు ఉద్దేశ్యం మరియు మొత్తాన్ని నిర్ధారించండి.",purpose:"ఉద్దేశ్యం",type:"రకం",prototypeSimulation:"ప్రోటోటైప్",continue:"కొనసాగించండి",change:"మార్చండి",
+insuranceIntro:"బీమా ఎంపికల గురించి సులభమైన వివరణలు.",insuranceExplain:"కొన్ని ప్రమాదాల నుంచి రక్షణ కోసం బీమా తీసుకుంటారు. ప్రయోజనాలు, అర్హత, మినహాయింపులు, ప్రీమియం మరియు పత్రాలు పాలసీపై ఆధారపడి ఉంటాయి.",health:"ఆరోగ్యం",healthInsurance:"ఆరోగ్య బీమా",healthSimple:"పాలసీ నిబంధనల ప్రకారం అర్హమైన వైద్య ఖర్చులకు సహాయం చేస్తుంది. సులభంగా చెప్పాలంటే, అర్హమైన ఆరోగ్య ఖర్చుల ఆర్థిక భారాన్ని తగ్గించవచ్చు.",whatItHelps:"ఏమికి సహాయం:",healthHelp:"అర్హమైన ఆసుపత్రి మరియు వైద్య ఖర్చులు.",whoMayNeed:"ఎవరికి అవసరం:",healthWho:"కుటుంబాలు, వృద్ధులు మరియు ఆరోగ్య రక్షణ కోరుకునేవారు.",beforeApply:"దరఖాస్తు ముందు:",healthBefore:"వయస్సు, కవరేజ్, మినహాయింపులు మరియు ప్రీమియం తనిఖీ చేయండి.",life:"జీవితం",lifeInsurance:"జీవిత బీమా",lifeSimple:"పాలసీ కాలంలో బీమా పొందిన వ్యక్తి మరణిస్తే, పాలసీ నిబంధనల ప్రకారం అర్హమైన లబ్ధిదారులకు ఆర్థిక రక్షణ అందిస్తుంది.",lifeHelp:"అర్హమైన లబ్ధిదారులకు ఆర్థిక సహాయం.",lifeWho:"కుటుంబం తమ ఆదాయంపై ఆధారపడే వ్యక్తులు.",lifeBefore:"నామినీ వివరాలు, మినహాయింపులు, ప్రీమియం మరియు పాలసీ కాలాన్ని తనిఖీ చేయండి.",documentsMayNeed:"అడగబడే పత్రాలు",docIdentity:"గుర్తింపు / చిరునామా రుజువు",docAge:"వయస్సు / పుట్టిన తేదీ రుజువు",docMedical:"అవసరమైతే వైద్య నివేదికలు",docBank:"అవసరమైతే బ్యాంక్ వివరాలు",docNominee:"నామినీ వివరాలు మరియు సంబంధ రుజువు",docIncome:"పాలసీ ప్రకారం ఆదాయం / వృత్తి రుజువు",learnMore:"మరింత తెలుసుకోండి",insuranceDocuments:"పత్రాలు",documentsExplain:"బీమా రకాన్ని బట్టి గుర్తింపు, చిరునామా, వయస్సు మరియు నామినీకి సంబంధించిన పత్రాలు అడగవచ్చు.",
+billsIntro:"సులభమైన తనిఖీ మరియు నిర్ధారణ ప్రక్రియతో రోజువారీ బిల్లులు చెల్లించండి.",billsExplain:"బిల్ ఎంచుకుని, మొత్తాన్ని నమోదు చేసి, వివరాలు తనిఖీ చేసి నిర్ధారించండి. ఇది ప్రోటోటైప్ చెల్లింపు.",electricity:"విద్యుత్",electricityExplain:"విద్యుత్ బిల్ చెల్లించండి.",mobileRechargeExplain:"మొబైల్ నంబర్ రీచార్జ్ చేయండి.",water:"నీరు",waterExplain:"నీటి బిల్ చెల్లించండి.",gas:"గ్యాస్",gasExplain:"గ్యాస్ బిల్ చెల్లించండి.",dth:"డీటిహెచ్",dthExplain:"టీవీ సేవను రీచార్జ్ చేయండి.",internet:"ఇంటర్నెట్",internetExplain:"ఇంటర్నెట్ సేవ బిల్ చెల్లించండి.",recharge:"రీచార్జ్",
+budgetIntro:"మీ డబ్బు ఎక్కడికి వెళ్తుందో ప్లాన్ చేయండి.",budgetExplain:"డబ్బు ఖర్చు చేసే ముందు ఆదాయం మరియు ఖర్చులను ప్లాన్ చేయడానికి బడ్జెట్ సహాయపడుతుంది.",budgetFood:"నెలవారీ ప్రణాళిక మొత్తం.",home:"ఇల్లు",budgetHome:"అద్దె మరియు ఇంటి అవసరాలు.",budgetUtilities:"విద్యుత్, నీరు మరియు సేవలు.",goalsIntro:"ముఖ్యమైన అవసరం కోసం డబ్బు పక్కన పెట్టండి.",goalsExplain:"పొదుపు లక్ష్యం స్పష్టమైన మొత్తాన్ని మరియు మీ పురోగతిని చూపిస్తుంది.",emergencyFund:"అత్యవసర నిధి",emergencyExplain:"అనుకోని అవసరాల కోసం పక్కన పెట్టే డబ్బు.",educationGoal:"విద్య",educationGoalExplain:"విద్యా ఖర్చుల కోసం క్రమంగా పొదుపు చేయండి.",
+scamIntro:"చర్య తీసుకునే ముందు అనుమానాస్పద సందేశాలను తనిఖీ చేయండి.",scamExplain:"మీకు వచ్చిన సందేశాన్ని నమోదు చేయండి. OTP అడగడం, అత్యవసర లింకులు, నకిలీ బహుమతులు మరియు అనుమానాస్పద చెల్లింపు అభ్యర్థనలు వంటి హెచ్చరికలను తనిఖీ చేస్తుంది.",message:"సందేశం",scamPlaceholder:"అనుమానాస్పద సందేశాన్ని ఇక్కడ నమోదు చేయండి",analyze:"సందేశాన్ని తనిఖీ చేయండి",
+learnIntro:"మొదటిసారి డిజిటల్ ఆర్థిక సేవలు ఉపయోగించే వారికి చిన్న పాఠాలు.",learnExplain:"ఒక అంశాన్ని ఎంచుకుని దాని అర్థం, ప్రాముఖ్యత మరియు గుర్తుంచుకోవాల్సిన విషయాలను తెలుసుకోండి. మీరు ఎంచుకున్న భాషలో వినవచ్చు.",whySavings:"పొదుపు ఎందుకు ముఖ్యం",whySavingsExplain:"పొదుపు ప్రణాళిక చేసిన మరియు అనుకోని అవసరాలకు సహాయపడుతుంది.",understandCredit:"మైక్రో-క్రెడిట్ అర్థం చేసుకోవడం",creditExplain:"మైక్రో-క్రెడిట్ అర్హమైన ఆర్థిక అవసరాల కోసం చిన్న మొత్తంలో రుణం.",understandInsurance:"బీమా అర్థం చేసుకోవడం",insuranceLearnExplain:"పాలసీ నిబంధనల ప్రకారం కొన్ని ప్రమాదాల నుంచి రక్షణ అందిస్తుంది.",avoidScams:"ఆర్థిక మోసాలను నివారించడం",scamLearnExplain:"ఎవరైనా అత్యవసరంగా అడిగినా OTP, PIN లేదా బ్యాంక్ పాస్‌వర్డ్‌ను పంచుకోవద్దు.",offlineMeaning:"ఆఫ్‌లైన్-ఫస్ట్ అంటే ఏమిటి",offlineLearnExplain:"ఇంటర్నెట్ తిరిగి వచ్చే వరకు ముఖ్యమైన పనులు ఫోన్‌లో పెండింగ్‌లో ఉండవచ్చు.",openLesson:"పాఠం తెరవండి",
+securityIntro:"మీ ఖాతా మరియు ఆర్థిక సమాచారాన్ని సురక్షితంగా ఉంచండి.",securityExplain:"PIN, OTP లేదా బ్యాంక్ పాస్‌వర్డ్‌ను ఎవరితోనూ పంచుకోవద్దు. పూర్తి వ్యవస్థలో ఆర్థిక చర్యలు backend ధృవీకరణ తర్వాత జరుగుతాయి.",pinSecurity:"PIN భద్రత",pinExplain:"ఇతరులు సులభంగా ఊహించలేని PIN ఉపయోగించండి.",freezeAccount:"ఖాతాను ఫ్రీజ్ చేయండి",freezeExplain:"అనధికారిక యాక్సెస్ అనుమానం ఉంటే ఈ ప్రోటోటైప్ నియంత్రణను ఉపయోగించండి.",freeze:"ఫ్రీజ్",safeHabits:"సురక్షిత అలవాట్లు",safeHabitsExplain:"డబ్బు పంపే ముందు అభ్యర్థనను తనిఖీ చేయండి.",accountIntro:"మీ ప్రొఫైల్ మరియు FinMitra సెట్టింగ్‌లను చూడండి.",accountNumber:"ఖాతా:",language:"భాష:",syncInformation:"సింక్ సమాచారం",voicePanelExplain:"ప్రస్తుత స్క్రీన్ గురించి అడగండి లేదా ఒక చర్యను మాట్లాడండి.",nextStep:"➡ తదుపరి దశ",hearAgain:"🔊 మళ్లీ వినండి"
+},
+
+ml:{
+tagline:"ലളിതമായ ധനസേവനം. എല്ലാവർക്കും.",
+splashDesc:"ഗ്രാമീണരും സേവനങ്ങൾ കുറവായി ലഭിക്കുന്നവരുമായ ആളുകൾക്കായി രൂപകൽപ്പന ചെയ്ത ലളിതമായ ധനകാര്യ പ്ലാറ്റ്ഫോം. കുറഞ്ഞ ശേഷിയുള്ള ഫോണുകൾ, പരിമിതമായ ഇന്റർനെറ്റ്, ഭാഷാ തടസ്സങ്ങൾ, കുറഞ്ഞ ഡിജിറ്റൽ പരിജ്ഞാനം എന്നിവ പരിഗണിക്കുന്നു.",
+badge1:"ബഹുഭാഷാ",badge2:"ഓഫ്‌ലൈൻ-ഫസ്റ്റ്",badge3:"വോയ്സ് മാർഗനിർദ്ദേശം",badge4:"സുരക്ഷ ആദ്യം",badge5:"കുറഞ്ഞ ശേഷിയുള്ള ഫോണുകൾക്ക്",
+start:"FinMitra ആരംഭിക്കുക →",voiceAssistant:"വോയ്സ് അസിസ്റ്റന്റ്",speak:"🎙 സംസാരിക്കുക",explain:"🔊 വിശദീകരിക്കുക",voiceReady:"വോയ്സ് അസിസ്റ്റന്റ് തയ്യാറാണ്. നിലവിലെ സ്ക്രീൻ കേൾക്കുകയോ സംസാരിക്കുകയോ ചെയ്യാം.",voiceHint:"നിങ്ങൾ സംസാരിച്ച അഭ്യർത്ഥന ഇവിടെ കാണിക്കും.",
+welcome:"FinMitra-യിലേക്ക് സ്വാഗതം",loginExplain:"ദൈനംദിന ധനസേവനങ്ങൾ ലളിതമായി ഉപയോഗിക്കുക. ഭാഷ തിരഞ്ഞെടുക്കുക, വിവരങ്ങൾ നൽകുക അല്ലെങ്കിൽ വോയ്സ് മാർഗനിർദ്ദേശം ഉപയോഗിക്കുക.",secure:"സുരക്ഷിത ലോഗിൻ",simpleNav:"ലളിതമായ നാവിഗേഷൻ",voiceLoginHelp:"വോയ്സ് ബട്ടൺ ഉപയോഗിച്ച് മൊബൈൽ നമ്പർ നൽകാം.",login:"ലോഗിൻ",createLogin:"പുതിയ ലോഗിൻ സൃഷ്ടിക്കുക",fullName:"പൂർണ്ണ പേര്",mobile:"മൊബൈൽ നമ്പർ",pin:"പിൻ",namePlaceholder:"നിങ്ങളുടെ പേര് നൽകുക",mobilePlaceholder:"10 അക്ക മൊബൈൽ നമ്പർ",pinPlaceholder:"പിൻ നൽകുക",voiceFill:"🎙 വോയ്സ് ഉപയോഗിച്ച് പൂരിപ്പിക്കുക",demoLogin:"ഡെമോ അക്കൗണ്ട് ഉപയോഗിക്കുക",prototypeAuth:"ഇത് ഒരു പ്രോട്ടോടൈപ്പ് ലോഗിൻ ആണ്. യഥാർത്ഥ ബാങ്കിംഗ് വിവരങ്ങൾ ഉപയോഗിക്കരുത്.",
+main:"പ്രധാന",tools:"ടൂളുകൾ",support:"സഹായം",dashboard:"ഡാഷ്ബോർഡ്",payments:"പേയ്മെന്റുകൾ",savings:"സേവിംഗ്സ്",microcredit:"മൈക്രോ-ക്രെഡിറ്റ്",insurance:"ഇൻഷുറൻസ്",bills:"ബില്ലുകളും റീചാർജും",budget:"ബജറ്റ്",goals:"സേവിംഗ്സ് ലക്ഷ്യങ്ങൾ",scam:"തട്ടിപ്പ് പരിശോധന",learn:"പഠിക്കുക",security:"സുരക്ഷ",account:"അക്കൗണ്ട്",logout:"ലോഗൗട്ട്",
+dashboardIntro:"നിങ്ങളുടെ ധനകാര്യ സ്ഥിതി ലളിതമായി കാണാം.",dashboardExplain:"ഈ സ്ക്രീനിൽ ലഭ്യമായ ബാലൻസ്, സേവിംഗ്സ് പുരോഗതി, അടുത്തകാല പ്രവർത്തനങ്ങൾ, ഇന്റർനെറ്റ് നില എന്നിവ കാണാം.",availableBalance:"ലഭ്യമായ ബാലൻസ്",balanceExplain:"നിങ്ങളുടെ പ്രോട്ടോടൈപ്പ് അക്കൗണ്ടിന്റെ നിലവിലെ സ്ഥിതി.",totalSavings:"ആകെ സേവിംഗ്സ്",savingsExplain:"സേവിംഗ്സ് പ്രവർത്തനത്തിലൂടെ സംരക്ഷിച്ച തുക.",connection:"കണക്ഷൻ",offlineExplain:"സിങ്ക് ചെയ്യുന്നതുവരെ കാത്തിരിക്കുന്ന പ്രവർത്തനങ്ങൾ ഫോണിൽ തുടരും.",quickActions:"വേഗത്തിലുള്ള പ്രവർത്തനങ്ങൾ",quickExplain:"സാധാരണ ധനകാര്യ പ്രവർത്തനങ്ങൾ നേരിട്ട് തിരഞ്ഞെടുക്കുക.",saveMoney:"പണം സേവ് ചെയ്യുക",sendReceive:"അയയ്ക്കുക / സ്വീകരിക്കുക",payBill:"ബിൽ അടയ്ക്കുക",checkMessage:"സന്ദേശം പരിശോധിക്കുക",savingsGoal:"സേവിംഗ്സ് ലക്ഷ്യം",recentActivity:"അടുത്തകാല പ്രവർത്തനങ്ങൾ",noActivity:"ഇതുവരെ ഇടപാടുകളില്ല.",
+paymentsIntro:"പ്രോട്ടോടൈപ്പിൽ പണം അയയ്ക്കാനും സ്വീകരിക്കാനും ലളിതമായ പ്രക്രിയ.",paymentsExplain:"ഇത് ഒരു പ്രോട്ടോടൈപ്പ് പേയ്മെന്റ് പ്രക്രിയയാണ്. യഥാർത്ഥ പണം കൈമാറ്റം ചെയ്യില്ല. ഓരോ പ്രവർത്തനത്തിന്റെയും നില വ്യക്തമായി കാണിക്കും.",sendMoney:"പണം അയയ്ക്കുക",sendExplain:"സ്വീകർത്താവിനെയും തുകയും നൽകുക, പരിശോധിച്ച് സ്ഥിരീകരിക്കുക.",recipient:"സ്വീകർത്താവ്",amount:"തുക",review:"പരിശോധിക്കുക",receiveMoney:"പണം സ്വീകരിക്കുക",receiveExplain:"അയയ്ക്കുന്ന വ്യക്തിക്ക് നിങ്ങളുടെ പ്രോട്ടോടൈപ്പ് പേയ്മെന്റ് ഐഡി കാണിക്കുക.",copyId:"ഐഡി പകർത്തുക",
+savingsIntro:"ഇന്റർനെറ്റ് താൽക്കാലികമായി ലഭ്യമല്ലെങ്കിലും പണം സേവ് ചെയ്യാം.",savingsExplainFull:"ഓഫ്‌ലൈൻ ആയിരിക്കുമ്പോൾ സേവിംഗ്സ് അഭ്യർത്ഥന ഫോണിൽ കാത്തിരിക്കുന്നതായി സൂക്ഷിക്കും. ഇന്റർനെറ്റ് വന്നാൽ അത് സിങ്ക് ചെയ്ത് സ്ഥിരീകരിക്കും.",saveWorkflow:"തുക → പരിശോധിക്കുക → സ്ഥിരീകരിക്കുക → ആവശ്യമെങ്കിൽ സിങ്ക് ചെയ്യുക.",testOffline:"ഓഫ്‌ലൈൻ പരിശോധിക്കുക",syncStatus:"സിങ്ക് നില",syncExplain:"സർവർ സ്ഥിരീകരിക്കുന്നതിന് മുമ്പ് ഫോണിലെ കാത്തിരിക്കുന്ന പ്രവർത്തനങ്ങൾ കാണിക്കും.",deviceQueue:"ഫോൺ ക്യൂ:",serverState:"സർവർ നില:",lastSync:"അവസാന സിങ്ക്:",syncNow:"ഇപ്പോൾ സിങ്ക് ചെയ്യുക",savingsHistory:"സേവിംഗ്സ് ചരിത്രം",
+loanIntro:"പ്രോട്ടോടൈപ്പ് യോഗ്യത പരിശോധിച്ച് അപേക്ഷാ പ്രക്രിയ തുടരുക.",loanExplain:"ഈ പ്രോട്ടോടൈപ്പ് യഥാർത്ഥ വായ്പ നൽകുന്നില്ല. യോഗ്യത മനസ്സിലാക്കുക, വിവരങ്ങൾ നൽകുക, അപേക്ഷ പരിശോധിക്കുക, നില കാണുക എന്നീ ഘട്ടങ്ങൾ കാണിക്കുന്നു.",requestedAmount:"ആവശ്യപ്പെട്ട തുക",loanPurpose:"വായ്പയുടെ ഉദ്ദേശ്യം",education:"വിദ്യാഭ്യാസം",food:"ഭക്ഷണം",utilities:"അവശ്യ സേവനങ്ങൾ",other:"മറ്റുള്ളവ",checkEligibility:"യോഗ്യത പരിശോധിക്കുക",eligibility:"യോഗ്യത",details:"വിവരങ്ങൾ",submit:"സമർപ്പിക്കുക",status:"നില",loanDetailsTitle:"അപേക്ഷാ വിവരങ്ങൾ",loanDetailsExplain:"തുടരുന്നതിന് മുമ്പ് ഉദ്ദേശ്യവും തുകയും സ്ഥിരീകരിക്കുക.",purpose:"ഉദ്ദേശ്യം",type:"തരം",prototypeSimulation:"പ്രോട്ടോടൈപ്പ്",continue:"തുടരുക",change:"മാറ്റുക",
+insuranceIntro:"ഇൻഷുറൻസ് ഓപ്ഷനുകളുടെ ലളിതമായ വിശദീകരണങ്ങൾ.",insuranceExplain:"ചില അപകടങ്ങളിൽ നിന്ന് സംരക്ഷണം ലഭിക്കുന്നതിനാണ് ഇൻഷുറൻസ്. ആനുകൂല്യങ്ങൾ, യോഗ്യത, ഒഴിവാക്കലുകൾ, പ്രീമിയം, രേഖകൾ എന്നിവ പോളിസിയെ ആശ്രയിച്ചിരിക്കും.",health:"ആരോഗ്യം",healthInsurance:"ആരോഗ്യ ഇൻഷുറൻസ്",healthSimple:"പോളിസി വ്യവസ്ഥകൾക്ക് വിധേയമായി യോഗ്യമായ ചികിത്സാ ചെലവുകൾക്ക് സഹായിക്കുന്നു. ലളിതമായി പറഞ്ഞാൽ, യോഗ്യമായ ആരോഗ്യ ചെലവുകളുടെ സാമ്പത്തിക ഭാരം കുറയ്ക്കാം.",whatItHelps:"എന്തിന് സഹായിക്കും:",healthHelp:"യോഗ്യമായ ആശുപത്രി, ചികിത്സാ ചെലവുകൾ.",whoMayNeed:"ആർക്കാവാം ആവശ്യം:",healthWho:"കുടുംബങ്ങൾ, മുതിർന്നവർ, ആരോഗ്യ സംരക്ഷണം ആഗ്രഹിക്കുന്നവർ.",beforeApply:"അപേക്ഷിക്കുന്നതിന് മുമ്പ്:",healthBefore:"പ്രായം, കവറേജ്, ഒഴിവാക്കലുകൾ, പ്രീമിയം പരിശോധിക്കുക.",life:"ലൈഫ്",lifeInsurance:"ലൈഫ് ഇൻഷുറൻസ്",lifeSimple:"പോളിസി കാലയളവിൽ ഇൻഷുറൻസ് എടുത്ത വ്യക്തി മരിച്ചാൽ, പോളിസി വ്യവസ്ഥകൾക്ക് വിധേയമായി യോഗ്യരായ ഗുണഭോക്താക്കൾക്ക് സാമ്പത്തിക സംരക്ഷണം നൽകുന്നു.",lifeHelp:"യോഗ്യരായ ഗുണഭോക്താക്കൾക്ക് സാമ്പത്തിക സഹായം.",lifeWho:"കുടുംബം വരുമാനത്തെ ആശ്രയിക്കുന്നവർ.",lifeBefore:"നോമിനി വിവരങ്ങൾ, ഒഴിവാക്കലുകൾ, പ്രീമിയം, പോളിസി കാലയളവ് പരിശോധിക്കുക.",documentsMayNeed:"ആവശ്യപ്പെടാവുന്ന രേഖകൾ",docIdentity:"തിരിച്ചറിയൽ / വിലാസ രേഖ",docAge:"പ്രായം / ജനന തീയതി രേഖ",docMedical:"ആവശ്യമെങ്കിൽ മെഡിക്കൽ റിപ്പോർട്ടുകൾ",docBank:"ആവശ്യമെങ്കിൽ ബാങ്ക് വിവരങ്ങൾ",docNominee:"നോമിനി വിവരങ്ങളും ബന്ധ രേഖയും",docIncome:"പോളിസി അനുസരിച്ചുള്ള വരുമാനം / തൊഴിൽ രേഖ",learnMore:"കൂടുതൽ അറിയുക",insuranceDocuments:"രേഖകൾ",documentsExplain:"ഇൻഷുറൻസ് തരമനുസരിച്ച് തിരിച്ചറിയൽ, വിലാസം, പ്രായം, നോമിനി സംബന്ധമായ രേഖകൾ ആവശ്യപ്പെടാം.",
+billsIntro:"ലളിതമായ പരിശോധനയും സ്ഥിരീകരണവും വഴി ദൈനംദിന ബില്ലുകൾ അടയ്ക്കുക.",billsExplain:"ബിൽ തിരഞ്ഞെടുക്കുക, തുക നൽകുക, വിവരങ്ങൾ പരിശോധിച്ച് സ്ഥിരീകരിക്കുക. ഇത് ഒരു പ്രോട്ടോടൈപ്പ് പേയ്മെന്റാണ്.",electricity:"വൈദ്യുതി",electricityExplain:"വൈദ്യുതി ബിൽ അടയ്ക്കുക.",mobileRechargeExplain:"മൊബൈൽ നമ്പർ റീചാർജ് ചെയ്യുക.",water:"വെള്ളം",waterExplain:"വെള്ള ബിൽ അടയ്ക്കുക.",gas:"ഗ്യാസ്",gasExplain:"ഗ്യാസ് ബിൽ അടയ്ക്കുക.",dth:"ഡിടിഎച്ച്",dthExplain:"ടിവി സേവനം റീചാർജ് ചെയ്യുക.",internet:"ഇന്റർനെറ്റ്",internetExplain:"ഇന്റർനെറ്റ് സേവന ബിൽ അടയ്ക്കുക.",recharge:"റീചാർജ്",
+budgetIntro:"നിങ്ങളുടെ പണം എവിടെ പോകുമെന്ന് മനസ്സിലാക്കുക.",budgetExplain:"പണം ചെലവാക്കുന്നതിന് മുമ്പ് വരുമാനവും ചെലവും ആസൂത്രണം ചെയ്യാൻ ബജറ്റ് സഹായിക്കും.",budgetFood:"മാസിക ആസൂത്രിത തുക.",home:"വീട്",budgetHome:"വാടകയും വീട്ടാവശ്യങ്ങളും.",budgetUtilities:"വൈദ്യുതി, വെള്ളം, സേവനങ്ങൾ.",goalsIntro:"പ്രധാനപ്പെട്ട ആവശ്യത്തിനായി പണം മാറ്റിവയ്ക്കുക.",goalsExplain:"സേവിംഗ്സ് ലക്ഷ്യം വ്യക്തമായ തുകയും പുരോഗതിയും കാണിക്കുന്നു.",emergencyFund:"അടിയന്തര നിധി",emergencyExplain:"അപ്രതീക്ഷിത ആവശ്യങ്ങൾക്കായി മാറ്റിവയ്ക്കുന്ന പണം.",educationGoal:"വിദ്യാഭ്യാസം",educationGoalExplain:"വിദ്യാഭ്യാസ ചെലവുകൾക്കായി ക്രമേണ സേവ് ചെയ്യുക.",
+scamIntro:"നടപടി എടുക്കുന്നതിന് മുമ്പ് സംശയാസ്പദമായ സന്ദേശങ്ങൾ പരിശോധിക്കുക.",scamExplain:"നിങ്ങൾക്ക് ലഭിച്ച സന്ദേശം നൽകുക. OTP ആവശ്യപ്പെടൽ, അടിയന്തര ലിങ്കുകൾ, വ്യാജ സമ്മാനങ്ങൾ, സംശയാസ്പദമായ പേയ്മെന്റ് അഭ്യർത്ഥനകൾ തുടങ്ങിയ മുന്നറിയിപ്പുകൾ പരിശോധിക്കും.",message:"സന്ദേശം",scamPlaceholder:"സംശയാസ്പദമായ സന്ദേശം ഇവിടെ നൽകുക",analyze:"സന്ദേശം പരിശോധിക്കുക",
+learnIntro:"ആദ്യമായി ഡിജിറ്റൽ ധനസേവനം ഉപയോഗിക്കുന്നവർക്കുള്ള ചെറിയ പാഠങ്ങൾ.",learnExplain:"ഒരു വിഷയം തിരഞ്ഞെടുക്കുക, അതിന്റെ അർത്ഥം, പ്രാധാന്യം, ഓർമ്മിക്കേണ്ട കാര്യങ്ങൾ മനസ്സിലാക്കുക. തിരഞ്ഞെടുത്ത ഭാഷയിൽ കേൾക്കാം.",whySavings:"സേവിംഗ്സ് എന്തുകൊണ്ട് പ്രധാനമാണ്",whySavingsExplain:"പദ്ധതിയിട്ടതും അപ്രതീക്ഷിതവുമായ ആവശ്യങ്ങൾക്ക് സേവിംഗ്സ് സഹായിക്കുന്നു.",understandCredit:"മൈക്രോ-ക്രെഡിറ്റ് മനസ്സിലാക്കുക",creditExplain:"യോഗ്യമായ സാമ്പത്തിക ആവശ്യങ്ങൾക്ക് ചെറിയ തുക വായ്പയാണ് മൈക്രോ-ക്രെഡിറ്റ്.",understandInsurance:"ഇൻഷുറൻസ് മനസ്സിലാക്കുക",insuranceLearnExplain:"പോളിസി വ്യവസ്ഥകൾ പ്രകാരം ചില അപകടങ്ങളിൽ നിന്ന് സംരക്ഷണം നൽകുന്നു.",avoidScams:"സാമ്പത്തിക തട്ടിപ്പുകൾ ഒഴിവാക്കുക",scamLearnExplain:"ആരെങ്കിലും അടിയന്തരമായി ആവശ്യപ്പെട്ടാലും OTP, PIN, ബാങ്ക് പാസ്‌വേഡ് പങ്കിടരുത്.",offlineMeaning:"ഓഫ്‌ലൈൻ-ഫസ്റ്റ് എന്നതിന്റെ അർത്ഥം",offlineLearnExplain:"ഇന്റർനെറ്റ് തിരികെ വരുന്നതുവരെ പ്രധാന പ്രവർത്തനങ്ങൾ ഫോണിൽ കാത്തിരിക്കാം.",openLesson:"പാഠം തുറക്കുക",
+securityIntro:"നിങ്ങളുടെ അക്കൗണ്ടും സാമ്പത്തിക വിവരങ്ങളും സുരക്ഷിതമായി സൂക്ഷിക്കുക.",securityExplain:"PIN, OTP അല്ലെങ്കിൽ ബാങ്ക് പാസ്‌വേഡ് ആരോടും പങ്കിടരുത്. പൂർണ്ണ സംവിധാനത്തിൽ സാമ്പത്തിക പ്രവർത്തനങ്ങൾ backend പരിശോധനയ്ക്ക് ശേഷമാണ് നടക്കുന്നത്.",pinSecurity:"PIN സുരക്ഷ",pinExplain:"മറ്റുള്ളവർക്ക് എളുപ്പത്തിൽ ഊഹിക്കാനാകാത്ത PIN ഉപയോഗിക്കുക.",freezeAccount:"അക്കൗണ്ട് ഫ്രീസ് ചെയ്യുക",freezeExplain:"അനധികൃത പ്രവേശനം സംശയിക്കുന്നുവെങ്കിൽ ഈ പ്രോട്ടോടൈപ്പ് നിയന്ത്രണം ഉപയോഗിക്കുക.",freeze:"ഫ്രീസ്",safeHabits:"സുരക്ഷിത ശീലങ്ങൾ",safeHabitsExplain:"പണം അയയ്ക്കുന്നതിന് മുമ്പ് അഭ്യർത്ഥന പരിശോധിക്കുക.",accountIntro:"നിങ്ങളുടെ പ്രൊഫൈലും FinMitra ക്രമീകരണങ്ങളും കാണുക.",accountNumber:"അക്കൗണ്ട്:",language:"ഭാഷ:",syncInformation:"സിങ്ക് വിവരങ്ങൾ",voicePanelExplain:"നിലവിലെ സ്ക്രീനിനെക്കുറിച്ച് ചോദിക്കുകയോ ഒരു പ്രവർത്തനം പറയുകയോ ചെയ്യുക.",nextStep:"➡ അടുത്ത ഘട്ടം",hearAgain:"🔊 വീണ്ടും കേൾക്കുക"
+}
+};
+
+let lang = localStorage.getItem("finmitra_lang") || "en";
+let authMode = "login";
+let currentScreen = "dashboard";
+let lastVoiceText = "";
+let recognition = null;
+let voiceBusy = false;
+
+/* =========================================================
+   DATA — USER CREATED ONLY
+   ========================================================= */
+
+let user = JSON.parse(localStorage.getItem("finmitra_user") || "null");
+let transactions = JSON.parse(localStorage.getItem("finmitra_transactions") || "[]");
+let queue = JSON.parse(localStorage.getItem("finmitra_queue") || "[]");
+let balance = Number(localStorage.getItem("finmitra_balance") || "0");
+let savings = Number(localStorage.getItem("finmitra_savings") || "0");
+let lastSync = localStorage.getItem("finmitra_last_sync") || "—";
+
+function saveData(){
+ localStorage.setItem("finmitra_user",JSON.stringify(user));
+ localStorage.setItem("finmitra_transactions",JSON.stringify(transactions));
+ localStorage.setItem("finmitra_queue",JSON.stringify(queue));
+ localStorage.setItem("finmitra_balance",balance.toFixed(2));
+ localStorage.setItem("finmitra_savings",savings.toFixed(2));
+ localStorage.setItem("finmitra_last_sync",lastSync);
+}
+
+/* =========================================================
+   TRANSLATION ENGINE
+   ========================================================= */
+
+function tr(key){
+ return (T[lang] && T[lang][key]) || T.en[key] || key;
+}
+
+function setLanguage(newLang){
+ if(!T[newLang]) newLang="en";
+ lang=newLang;
+ localStorage.setItem("finmitra_lang",lang);
+
+ ["languageSplash","languageApp","languageVoice"].forEach(id=>{
+   const el=document.getElementById(id);
+   if(el) el.value=lang;
+ });
+
+ document.documentElement.lang=lang;
+
+ document.querySelectorAll("[data-i18n]").forEach(el=>{
+   const key=el.getAttribute("data-i18n");
+   if(T[lang][key]!==undefined) el.textContent=T[lang][key];
+ });
+
+ document.querySelectorAll("[data-placeholder]").forEach(el=>{
+   const key=el.getAttribute("data-placeholder");
+   if(T[lang][key]!==undefined) el.placeholder=T[lang][key];
+ });
+
+ updatePageName();
+ updateDashboard();
+ updateAccount();
+
+ /* IMPORTANT: voice language changes immediately */
+ updateVoiceStatus(tr("voiceReady"));
+ stopRecognition();
+
+ /* Re-speak current screen automatically in selected language */
+ setTimeout(()=>speakCurrentScreen(),180);
+}
+
+function updatePageName(){
+ const keyMap={
+ dashboard:"dashboard",payments:"payments",savings:"savings",loans:"microcredit",
+ insurance:"insurance",bills:"bills",budget:"budget",goals:"goals",scam:"scam",
+ learn:"learn",security:"security",account:"account"
+ };
+ const el=document.getElementById("pageName");
+ if(el) el.textContent=tr(keyMap[currentScreen]||"dashboard");
+}
+
+function applyTranslations(){
+ document.querySelectorAll("[data-i18n]").forEach(el=>{
+   const key=el.getAttribute("data-i18n");
+   if(T[lang][key]!==undefined) el.textContent=T[lang][key];
+ });
+ document.querySelectorAll("[data-placeholder]").forEach(el=>{
+   const key=el.getAttribute("data-placeholder");
+   if(T[lang][key]!==undefined) el.placeholder=T[lang][key];
+ });
+}
+
+/* =========================================================
+   SPLASH / AUTH
+   ========================================================= */
+
+function openLogin(){
+ document.getElementById("splash").classList.add("hidden");
+ document.getElementById("auth").classList.remove("hidden");
+ applyTranslations();
+ updateVoiceStatus(tr("voiceReady"));
+ setTimeout(()=>speakText(authExplanation()),250);
+}
+
+function toggleRegister(){
+ authMode=authMode==="login"?"register":"login";
+ document.getElementById("nameGroup").classList.toggle("hidden",authMode!=="register");
+ document.getElementById("authTitle").textContent=authMode==="register"?tr("createLogin"):tr("login");
+ document.getElementById("authSubmit").textContent=authMode==="register"?tr("createLogin"):tr("login");
+ document.getElementById("registerToggle").textContent=authMode==="register"?tr("login"):tr("createLogin");
+ setTimeout(()=>speakText(authExplanation()),150);
+}
+
+function authExplanation(){
+ return authMode==="register"
+ ? tr("createLogin")+". "+tr("fullName")+", "+tr("mobile")+", "+tr("pin")+"."
+ : tr("login")+". "+tr("mobile")+". "+tr("pin")+".";
+}
+
+function submitAuth(){
+ const mobile=document.getElementById("mobileInput").value.replace(/\D/g,"");
+ const pin=document.getElementById("pinInput").value.trim();
+
+ if(mobile.length!==10){
+   toast(lang==="en"?"Enter a valid 10-digit mobile number.":tr("mobilePlaceholder"));
+   return;
+ }
+ if(pin.length<4){
+   toast(lang==="en"?"Enter a valid PIN.":tr("pinPlaceholder"));
+   return;
+ }
+
+ if(authMode==="register"){
+   const name=document.getElementById("nameInput").value.trim();
+   if(!name){
+     toast(lang==="en"?"Enter your name.":tr("namePlaceholder"));
+     return;
+   }
+   user={
+     name,
+     mobile,
+     account:"FM-"+mobile.slice(-6),
+     paymentId:"FM-"+mobile.slice(-6)
+   };
+   saveData();
+ }else{
+   if(!user){
+     user={name:"FinMitra User",mobile,account:"FM-"+mobile.slice(-6),paymentId:"FM-"+mobile.slice(-6)};
+     saveData();
+   }else{
+     user.mobile=mobile;
+     saveData();
+   }
+ }
+
+ launchApp();
+}
+
+function demoLogin(){
+ user={
+   name:"Demo User",
+   mobile:"9000000000",
+   account:"FM-DEMO-001",
+   paymentId:"FM-DEMO-001"
+ };
+ saveData();
+ document.getElementById("mobileInput").value=user.mobile;
+ document.getElementById("pinInput").value="1234";
+ launchApp();
+}
+
+function launchApp(){
+ document.getElementById("auth").classList.add("hidden");
+ document.getElementById("app").style.display="block";
+ updateAll();
+ go("dashboard",false);
+ setTimeout(()=>speakCurrentScreen(),250);
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function go(screen,autoVoice=true){
+ currentScreen=screen;
+
+ document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
+ const target=document.getElementById("screen-"+screen);
+ if(target) target.classList.add("active");
+
+ document.querySelectorAll(".nav-btn").forEach(btn=>{
+   btn.classList.toggle("active",btn.dataset.screen===screen);
+ });
+
+ updatePageName();
+
+ document.getElementById("sidebar").classList.remove("open");
+
+ updateAll();
+
+ if(autoVoice){
+   setTimeout(()=>speakCurrentScreen(),180);
+ }
+}
+
+function toggleSidebar(){
+ document.getElementById("sidebar").classList.toggle("open");
+}
+
+/* =========================================================
+   SCREEN-SPECIFIC VOICE EXPLANATIONS
+   ========================================================= */
+
+function currentExplanation(){
+ const map={
+  dashboard:"dashboardExplain",
+  payments:"paymentsExplain",
+  savings:"savingsExplainFull",
+  loans:"loanExplain",
+  insurance:"insuranceExplain",
+  bills:"billsExplain",
+  budget:"budgetExplain",
+  goals:"goalsExplain",
+  scam:"scamExplain",
+  learn:"learnExplain",
+  security:"securityExplain",
+  account:"accountIntro"
+ };
+ return tr(map[currentScreen]||"dashboardExplain");
+}
+
+function speakCurrentScreen(){
+ const titleMap={
+  dashboard:"dashboard",payments:"payments",savings:"savings",loans:"microcredit",
+  insurance:"insurance",bills:"bills",budget:"budget",goals:"goals",scam:"scam",
+  learn:"learn",security:"security",account:"account"
+ };
+ const title=tr(titleMap[currentScreen]||"dashboard");
+ speakText(title+". "+currentExplanation());
+}
+
+function explainCurrent(){
+ speakCurrentScreen();
+}
+
+function nextStep(){
+ const next={
+  dashboard:"savings",
+  payments:"payments",
+  savings:"savings",
+  loans:"loans",
+  insurance:"insurance",
+  bills:"bills",
+  budget:"goals",
+  goals:"savings",
+  scam:"learn",
+  learn:"security",
+  security:"account",
+  account:"dashboard"
+ };
+ const n=next[currentScreen]||"dashboard";
+ if(currentScreen==="dashboard"){
+   speakText(tr("quickExplain"));
+   return;
+ }
+ speakText(tr("nextStep"));
+ go(n);
+}
+
+function replayVoice(){
+ if(lastVoiceText) speakText(lastVoiceText);
+ else speakCurrentScreen();
+}
+
+/* =========================================================
+   VOICE ENGINE
+   ========================================================= */
+
+const localeMap={
+ en:"en-IN",
+ ta:"ta-IN",
+ hi:"hi-IN",
+ te:"te-IN",
+ ml:"ml-IN"
+};
+
+function getVoiceLocale(){
+ return localeMap[lang]||"en-IN";
+}
+
+function speakText(text){
+ if(!text) return;
+ lastVoiceText=text;
+
+ if(!("speechSynthesis" in window)){
+   updateVoiceStatus(text);
+   return;
+ }
+
+ window.speechSynthesis.cancel();
+
+ const utter=new SpeechSynthesisUtterance(text);
+ utter.lang=getVoiceLocale();
+ utter.rate=.9;
+ utter.pitch=1;
+
+ const voices=window.speechSynthesis.getVoices();
+ const wanted=getVoiceLocale().toLowerCase();
+ const base=lang.toLowerCase();
+
+ let voice=voices.find(v=>
+   v.lang && v.lang.toLowerCase()===wanted
+ );
+ if(!voice){
+   voice=voices.find(v=>
+     v.lang && v.lang.toLowerCase().startsWith(base)
+   );
+ }
+ if(voice) utter.voice=voice;
+
+ utter.onstart=()=>updateVoiceStatus("🔊 "+text);
+ utter.onend=()=>updateVoiceStatus(tr("voiceReady"));
+ utter.onerror=()=>updateVoiceStatus(text);
+
+ window.speechSynthesis.speak(utter);
+}
+
+function updateVoiceStatus(text){
+ ["globalVoiceStatus","splashVoiceStatus"].forEach(id=>{
+   const el=document.getElementById(id);
+   if(el) el.textContent=text;
+ });
+}
+
+function toggleVoicePanel(){
+ document.getElementById("voicePanel").classList.toggle("show");
+}
+
+function stopRecognition(){
+ if(recognition){
+   try{recognition.stop()}catch(e){}
+ }
+ voiceBusy=false;
+}
+
+function startVoice(){
+ if(!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)){
+   const msg={
+     en:"Speech recognition is not available in this browser. You can type your request instead.",
+     ta:"இந்த உலாவியில் குரல் அடையாளம் காணும் வசதி இல்லை. உங்கள் கோரிக்கையை தட்டச்சு செய்யலாம்.",
+     hi:"इस ब्राउज़र में आवाज़ पहचान उपलब्ध नहीं है। आप अपनी बात टाइप कर सकते हैं।",
+     te:"ఈ బ్రౌజర్‌లో వాయిస్ గుర్తింపు అందుబాటులో లేదు. మీ అభ్యర్థనను టైప్ చేయవచ్చు.",
+     ml:"ഈ ബ്രൗസറിൽ വോയ്സ് തിരിച്ചറിയൽ ലഭ്യമല്ല. നിങ്ങളുടെ അഭ്യർത്ഥന ടൈപ്പ് ചെയ്യാം."
+   };
+   updateVoiceStatus(msg[lang]);
+   return;
+ }
+
+ stopRecognition();
+
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ recognition=new SR();
+ recognition.lang=getVoiceLocale();
+ recognition.continuous=false;
+ recognition.interimResults=false;
+ recognition.maxAlternatives=3;
+
+ voiceBusy=true;
+ updateVoiceStatus(tr("speak"));
+
+ recognition.onstart=()=>{
+   voiceBusy=true;
+   updateVoiceStatus("🎙 "+tr("speak"));
+ };
+
+ recognition.onresult=e=>{
+   const text=e.results[0][0].transcript.trim();
+   lastVoiceText=text;
+
+   document.getElementById("globalTranscript").textContent=text;
+   document.getElementById("splashTranscript").textContent=text;
+
+   handleVoiceCommand(text);
+ };
+
+ recognition.onerror=e=>{
+   voiceBusy=false;
+   const errors={
+     "not-allowed":"Microphone permission was denied.",
+     "service-not-allowed":"Speech service is unavailable.",
+     "network":"Speech recognition needs a network connection in this browser.",
+     "no-speech":"No speech was detected. Please try again."
+   };
+   const msg=errors[e.error]||("Voice error: "+e.error);
+   updateVoiceStatus(msg);
+ };
+
+ recognition.onend=()=>voiceBusy=false;
+
+ try{
+   recognition.start();
+ }catch(e){
+   voiceBusy=false;
+ }
+}
+
+function voiceLogin(){
+ startVoice();
+}
+
+function normalizeVoiceText(text){
+ return text
+   .toLowerCase()
+   .replace(/[₹,]/g," ")
+   .replace(/\s+/g," ")
+   .trim();
+}
+
+function parseNumber(text){
+ const digits=(text.match(/\d+/g)||[]).join("");
+ if(digits) return Number(digits);
+
+ const words={
+  zero:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,
+  hundred:100,thousand:1000,
+  "ஒன்று":1,"இரண்டு":2,"மூன்று":3,"நான்கு":4,"ஐந்து":5,"ஆறு":6,"ஏழு":7,"எட்டு":8,"ஒன்பது":9,
+  "ஒரு":1,"ஆயிரம்":1000,
+  "एक":1,"दो":2,"तीन":3,"चार":4,"पाँच":5,"छह":6,"सात":7,"आठ":8,"नौ":9,
+  "ఒక":1,"రెండు":2,"మూడు":3,"నాలుగు":4,"ఐదు":5,
+  "ഒന്ന്":1,"രണ്ട്":2,"മൂന്ന്":3,"നാല്":4,"അഞ്ച്":5
+ };
+
+ let total=0;
+ text.split(/\s+/).forEach(w=>{
+   if(words[w]!==undefined) total+=words[w];
+ });
+ return total||null;
+}
+
+function handleVoiceCommand(text){
+ const t=normalizeVoiceText(text);
+
+ /* AUTH: detect mobile number */
+ if(document.getElementById("auth") && !document.getElementById("auth").classList.contains("hidden")){
+   const nums=t.match(/\d/g)||[];
+   if(nums.length>=8){
+     const mobile=nums.join("").slice(-10);
+     document.getElementById("mobileInput").value=mobile;
+     updateVoiceStatus(tr("mobile")+" ✓");
+     speakText(tr("mobile")+" ✓");
+     return;
+   }
+
+   if(t.includes("login")||t.includes("लॉगिन")||t.includes("లాగిన్")||t.includes("ലോഗിൻ")||t.includes("உள்நுழை")){
+     submitAuth();
+     return;
+   }
+ }
+
+ const routes=[
+  ["dashboard",["dashboard","home","முகப்பு","டாஷ்போர்டு","डैशबोर्ड","होम","డ్యాష్‌బోర్డ్","డాష్","ഡാഷ്ബോർഡ്","ഹോം"]],
+  ["payments",["payment","payments","send money","pay","பணம்","பேமெண்ட்","भुगतान","पैसे","చెల్లింపు","പേയ്മെന്റ്"]],
+  ["savings",["saving","savings","save money","சேமிப்பு","சேமி","बचत","पैसे बचाओ","పొదుపు","സേവിംഗ്സ്"]],
+  ["loans",["loan","micro credit","credit","கடன்","சிறு கடன்","ऋण","माइक्रो","రుణం","ക്രെഡിറ്റ്"]],
+  ["insurance",["insurance","காப்பீடு","बीमा","बीमा","బీమా","ഇൻഷുറൻസ്"]],
+  ["bills",["bill","recharge","electricity","water","gas","dth","பில்","ரீசார்ஜ்","बिल","रिचार्ज","బిల్","రీచార్జ్","ബിൽ","റീചാർജ്"]],
+  ["budget",["budget","பட்ஜெட்","बजट","బడ్జెట్","ബജറ്റ്"]],
+  ["goals",["goal","savings goal","இலக்கு","लक्ष्य","లక్ష్యం","ലക്ഷ്യം"]],
+  ["scam",["scam","fraud","suspicious","மோசடி","धोखाधड़ी","मోసం","തട്ടിപ്പ്"]],
+  ["learn",["learn","lesson","கற்றல்","பாடம்","सीख","पाठ","నేర్చుకో","పాఠం","പഠിക്കുക","പാഠം"]],
+  ["security",["security","safe","பாதுகாப்பு","सुरक्षा","భద్రత","സുരക്ഷ"]],
+  ["account",["account","profile","கணக்கு","खाता","खाता","ఖాతా","അക്കൗണ്ട്"]]
+ ];
+
+ for(const [screen,words] of routes){
+   if(words.some(w=>t.includes(w))){
+     go(screen);
+     return;
+   }
+ }
+
+ /* Savings voice intent */
+ if(t.includes("save")||t.includes("சேமி")||t.includes("बचत")||t.includes("పొదుపు")||t.includes("സേവ്")){
+   const n=parseNumber(t);
+   if(n){
+     go("savings");
+     document.getElementById("saveAmount").value=n;
+     speakText(tr("review"));
+     return;
+   }
+ }
+
+ /* Loan voice intent */
+ if(t.includes("loan")||t.includes("கடன்")||t.includes("ऋण")||t.includes("రుణం")||t.includes("വായ്പ")){
+   const n=parseNumber(t);
+   go("loans");
+   if(n) document.getElementById("loanAmount").value=n;
+   return;
+ }
+
+ speakText(tr("voicePanelExplain"));
+}
+
+/* =========================================================
+   DYNAMIC DASHBOARD
+   ========================================================= */
+
+function updateDashboard(){
+ const balanceEl=document.getElementById("balanceAmount");
+ const savingsEl=document.getElementById("savingsAmount");
+ if(balanceEl) balanceEl.textContent="₹"+balance.toFixed(2);
+ if(savingsEl) savingsEl.textContent="₹"+savings.toFixed(2);
+
+ const online=navigator.onLine;
+ const net=document.getElementById("networkStatus");
+ const conn=document.getElementById("connectionText");
+ if(net) net.textContent=online?"● Online":"● Offline";
+ if(conn) conn.textContent=online?"Online":"Offline";
+
+ const goalPct=Math.min(100,(savings/10000)*100);
+ ["goalBar","goalBar2"].forEach(id=>{
+   const el=document.getElementById(id);
+   if(el) el.style.width=goalPct+"%";
+ });
+ ["goalSaved","goalSaved2"].forEach(id=>{
+   const el=document.getElementById(id);
+   if(el) el.textContent="₹"+savings.toFixed(0);
+ });
+
+ const activity=document.getElementById("recentActivity");
+ if(activity){
+   if(!transactions.length){
+     activity.innerHTML='<div class="muted" style="padding-top:12px">'+escapeHTML(tr("noActivity"))+'</div>';
+   }else{
+     activity.innerHTML=transactions.slice().reverse().slice(0,6).map(x=>{
+       const cls=x.type==="SAVE"?"plus":"minus";
+       const sign=x.type==="SAVE"?"+":"−";
+       return `<div class="activity">
+         <span>${escapeHTML(x.label)}</span>
+         <span class="${cls}">${sign}₹${Number(x.amount).toFixed(2)}</span>
+       </div>`;
+     }).join("");
+   }
+ }
+}
+
+function updateSavingsHistory(){
+ const el=document.getElementById("savingsHistory");
+ if(!el)return;
+ const arr=transactions.filter(x=>x.type==="SAVE").slice().reverse();
+ if(!arr.length){
+   el.innerHTML='<div class="muted" style="padding-top:12px">'+escapeHTML(tr("noActivity"))+'</div>';
+   return;
+ }
+ el.innerHTML=arr.map(x=>`
+   <div class="activity">
+    <span>${escapeHTML(x.label)}<br><small class="muted">${escapeHTML(x.status||"CONFIRMED")}</small></span>
+    <span class="plus">+₹${Number(x.amount).toFixed(2)}</span>
+   </div>
+ `).join("");
+}
+
+function updateQueue(){
+ const count=queue.length;
+ ["queueCount","accountQueue"].forEach(id=>{
+   const el=document.getElementById(id);
+   if(el)el.textContent=count;
+ });
+ ["serverState","accountServerState"].forEach(id=>{
+   const el=document.getElementById(id);
+   if(el)el.textContent=count? "Pending":"Confirmed";
+ });
+ ["lastSync","accountLastSync"].forEach(id=>{
+   const el=document.getElementById(id);
+   if(el)el.textContent=lastSync;
+ });
+}
+
+function updateAccount(){
+ if(!user)return;
+ document.getElementById("profileName").textContent=user.name||"User";
+ document.getElementById("profileMobile").textContent=user.mobile||"—";
+ document.getElementById("accountNumber").textContent=user.account||"—";
+ document.getElementById("paymentId").textContent=user.paymentId||user.account||"FM-USER";
+ document.getElementById("profileLanguage").textContent=
+   document.querySelector(`#languageApp option[value="${lang}"]`)?.textContent||lang;
+}
+
+/* =========================================================
+   SAVINGS FLOW
+   ========================================================= */
+
+function reviewSaving(){
+ const amount=Number(document.getElementById("saveAmount").value);
+ if(!amount||amount<=0){
+   showResult("savingResult","danger",lang==="en"?"Enter a valid amount.":tr("amount"));
+   return;
+ }
+
+ const id="FT09-"+Date.now();
+ const online=navigator.onLine;
+
+ const message=online
+ ? `₹${amount.toFixed(2)} — ${tr("review")}.`
+ : `₹${amount.toFixed(2)} — ${tr("deviceQueue")}`;
+
+ showResult("savingResult","good",
+   `<b>${escapeHTML(message)}</b><br>${escapeHTML(
+     online
+     ? (lang==="en"?"This saving will be confirmed after the review step.":"")
+     : (lang==="en"?"Internet is unavailable. It will stay pending on this device until sync.":"")
+   )}`
+ );
+
+ openConfirm(
+   tr("saveMoney"),
+   `${tr("amount")}: ₹${amount.toFixed(2)}<br>${online?"Online":"Offline"}<br>${tr("type")}: ${tr("prototypeSimulation")}`,
+   ()=>{
+     processSaving(amount,id)
+   }
+ );
+}
+
+function processSaving(amount,id){
+ const exists=transactions.some(x=>x.clientId===id)||queue.some(x=>x.clientId===id);
+ if(exists)return;
+
+ const item={
+  clientId:id,type:"SAVE",amount,
+  label:tr("saveMoney"),
+  status:navigator.onLine?"CONFIRMED":"PENDING"
+ };
+
+ if(navigator.onLine){
+   savings+=amount;
+   balance+=amount;
+   transactions.push(item);
+   lastSync=new Date().toLocaleString();
+ }else{
+   queue.push(item);
+ }
+
+ saveData();
+ updateAll();
+
+ showResult("savingResult","good",
+  navigator.onLine
+  ? `<b>${escapeHTML(tr("status"))}: ${escapeHTML(tr("review"))} ✓</b><br>${escapeHTML(tr("serverState"))} ${escapeHTML(tr("status"))}`
+  : `<b>${escapeHTML(tr("deviceQueue"))} ✓</b><br>${escapeHTML(tr("offlineExplain"))}`
+ );
+}
+
+function simulateOffline(){
+ const old=navigator.onLine;
+ /* UI simulation only; does not change browser network state */
+ showResult("savingResult","warn",
+  lang==="en"
+  ?"Offline simulation enabled for the next saving action. The browser is still online."
+  :tr("offlineExplain")
+ );
+ window.__simulateOffline=true;
+}
+
+function syncQueue(){
+ if(!queue.length){
+   toast(lang==="en"?"Nothing is waiting to sync.":tr("serverState"));
+   return;
+ }
+ if(!navigator.onLine){
+   toast(lang==="en"?"Internet is still offline.":tr("connection"));
+   return;
+ }
+
+ const processed=[];
+ queue.forEach(item=>{
+   const duplicate=transactions.some(x=>x.clientId===item.clientId);
+   if(!duplicate){
+     savings+=Number(item.amount);
+     balance+=Number(item.amount);
+     transactions.push({...item,status:"CONFIRMED"});
+   }
+   processed.push(item.clientId);
+ });
+
+ queue=[];
+ lastSync=new Date().toLocaleString();
+ saveData();
+ updateAll();
+
+ speakText(tr("syncNow")+" ✓");
+ toast(lang==="en"?"All pending actions were synchronized.":"✓");
+}
+
+/* =========================================================
+   LOAN FLOW
+   ========================================================= */
+
+function checkEligibility(){
+ const amount=Number(document.getElementById("loanAmount").value);
+ if(!amount||amount<=0){
+   showResult("eligibilityResult","danger",lang==="en"?"Enter a valid amount.":tr("requestedAmount"));
+   return;
+ }
+
+ const eligible=amount<=50000;
+ const purpose=document.getElementById("loanPurpose").value;
+
+ document.getElementById("loanReviewAmount").textContent="₹"+amount.toFixed(2);
+ document.getElementById("loanReviewPurpose").textContent=
+   document.getElementById("loanPurpose").selectedOptions[0].textContent;
+
+ showResult("eligibilityResult",eligible?"good":"warn",
+  eligible
+  ? `<b>${escapeHTML(tr("eligibility"))}: ✓</b><br>${escapeHTML(
+      lang==="en"?"The requested amount passes the prototype eligibility rule. You can now review the application details.":""
+    )}`
+  : `<b>${escapeHTML(tr("eligibility"))}: ${escapeHTML(lang==="en"?"Not available":"—")}</b><br>${escapeHTML(
+      lang==="en"?"For this prototype, requests above ₹50,000 do not pass the demo eligibility rule.":""
+    )}`
+ );
+
+ if(eligible){
+   document.getElementById("loanApplicationArea").classList.remove("hidden");
+   setLoanStep(1);
+   speakText(tr("eligibility")+" ✓. "+tr("loanDetailsExplain"));
+ }else{
+   document.getElementById("loanApplicationArea").classList.add("hidden");
+ }
+}
+
+function setLoanStep(n){
+ for(let i=1;i<=5;i++){
+   const el=document.getElementById("lp"+i);
+   if(!el)continue;
+   el.classList.toggle("done",i<n);
+   el.classList.toggle("current",i===n);
+ }
+}
+
+function continueLoanDetails(){
+ setLoanStep(2);
+
+ openConfirm(
+  tr("loanDetailsTitle"),
+  `${tr("amount")}: ${document.getElementById("loanReviewAmount").textContent}<br>
+   ${tr("purpose")}: ${document.getElementById("loanReviewPurpose").textContent}<br>
+   ${tr("type")}: ${tr("prototypeSimulation")}`,
+  ()=>{
+    setLoanStep(3);
+    openLoanReview();
+  }
+ );
+}
+
+function openLoanReview(){
+ openConfirm(
+  tr("review"),
+  tr("loanDetailsExplain"),
+  ()=>{
+    setLoanStep(4);
+    openConfirm(
+      tr("submit"),
+      lang==="en"
+      ?"Your application is ready to submit in this prototype."
+      :tr("prototypeSimulation"),
+      ()=>{
+        setLoanStep(5);
+        showResult("eligibilityResult","good",
+          `<b>${escapeHTML(tr("status"))}: ✓</b><br>${escapeHTML(
+            lang==="en"
+            ?"Application submitted for prototype processing. No real loan is created."
+            :tr("prototypeSimulation")
+          )}`
+        );
+        speakText(tr("status")+" ✓");
+      }
+    );
+  }
+ );
+}
+
+function resetLoan(){
+ document.getElementById("loanApplicationArea").classList.add("hidden");
+ document.getElementById("eligibilityResult").className="result";
+ document.getElementById("eligibilityResult").innerHTML="";
+}
+
+/* =========================================================
+   INSURANCE FLOW
+   ========================================================= */
+
+function openInsurance(type){
+ const health=type==="health";
+
+ const title=health?tr("healthInsurance"):tr("lifeInsurance");
+ const body=health
+ ? `<p>${tr("healthSimple")}</p>
+    <div class="doc-box">
+      <strong>📄 ${tr("documentsMayNeed")}</strong>
+      <ul>
+       <li>${tr("docIdentity")}</li>
+       <li>${tr("docAge")}</li>
+       <li>${tr("docMedical")}</li>
+       <li>${tr("docBank")}</li>
+      </ul>
+    </div>
+    <div class="explain-box" style="margin-top:15px;margin-bottom:0">
+      ${lang==="en"?"Next: check policy eligibility, coverage, exclusions and premium before applying.":tr("beforeApply")}
+    </div>`
+ : `<p>${tr("lifeSimple")}</p>
+    <div class="doc-box">
+      <strong>📄 ${tr("documentsMayNeed")}</strong>
+      <ul>
+       <li>${tr("docIdentity")}</li>
+       <li>${tr("docAge")}</li>
+       <li>${tr("docNominee")}</li>
+       <li>${tr("docIncome")}</li>
+      </ul>
+    </div>
+    <div class="explain-box" style="margin-top:15px;margin-bottom:0">
+      ${lang==="en"?"Next: check policy period, nominee details, exclusions and premium before applying.":tr("beforeApply")}
+    </div>`;
+
+ openModal(title,body);
+ speakText(title+". "+(health?tr("healthSimple"):tr("lifeSimple")));
+}
+
+/* =========================================================
+   BILLS FLOW
+   ========================================================= */
+
+function openBill(type){
+ const names={
+  electricity:tr("electricity"),
+  mobile:tr("mobileRechargeExplain"),
+  water:tr("water"),
+  gas:tr("gas"),
+  dth:tr("dth"),
+  internet:tr("internet")
+ };
+ const title=names[type]||tr("bills");
+
+ openModal(
+  title,
+  `<div class="form-grid">
+    <div class="form-group">
+      <label>${tr("recipient")}</label>
+      <input id="billConsumer" placeholder="${lang==="en"?"Consumer number / mobile number":tr("mobilePlaceholder")}">
+    </div>
+    <div class="form-group">
+      <label>${tr("amount")}</label>
+      <input id="billAmount" type="number" min="1" placeholder="₹">
+    </div>
+   </div>
+   <div class="form-actions" style="margin-top:16px">
+    <button class="action primary" onclick="reviewBill('${type}')">${tr("review")}</button>
+   </div>
+   <div class="result" id="billResult"></div>`
+ );
+}
+
+function reviewBill(type){
+ const amount=Number(document.getElementById("billAmount").value);
+ if(!amount||amount<=0){
+   showResult("billResult","danger",lang==="en"?"Enter a valid amount.":tr("amount"));
+   return;
+ }
+
+ const consumer=document.getElementById("billConsumer").value.trim();
+ if(!consumer){
+   showResult("billResult","danger",tr("recipient"));
+   return;
+ }
+
+ showResult("billResult","good",
+  `<b>${escapeHTML(tr("review"))}</b><br>${escapeHTML(tr("amount"))}: ₹${amount.toFixed(2)}`
+ );
+
+ openConfirm(
+  tr("review"),
+  `${escapeHTML(tr("amount"))}: ₹${amount.toFixed(2)}<br>${escapeHTML(tr("type"))}: ${escapeHTML(tr(type==="mobile"||type==="dth"?"recharge":"payBill"))}<br>${escapeHTML(tr("prototypeSimulation"))}`,
+  ()=>{
+    const id="BILL-"+Date.now();
+    transactions.push({
+      clientId:id,type:"BILL",amount,
+      label:tr(type==="mobile"||type==="dth"?"recharge":"payBill"),
+      status:"CONFIRMED"
+    });
+    balance=Math.max(0,balance-amount);
+    lastSync=new Date().toLocaleString();
+    saveData();
+    updateAll();
+    closeModal();
+    toast(lang==="en"?"Bill payment completed in prototype.":"✓");
+    speakText(tr("status")+" ✓");
+  }
+ );
+}
+
+/* =========================================================
+   SCAM CHECK
+   ========================================================= */
+
+function checkScam(){
+ const text=document.getElementById("scamInput").value.trim();
+ if(!text){
+   showResult("scamResult","warn",tr("message"));
+   return;
+ }
+
+ const lower=text.toLowerCase();
+ let score=0;
+ const flags=[];
+
+ const rules=[
+  [["otp","one time password"],35,"OTP"],
+  [["pin"],30,"PIN"],
+  [["password"],30,"Password"],
+  [["click","link"],20,"Link"],
+  [["urgent","immediately","now"],15,"Urgency"],
+  [["blocked","suspended"],20,"Account threat"],
+  [["lottery","prize","winner"],35,"Prize"],
+  [["send money","transfer"],20,"Payment request"]
+ ];
+
+ rules.forEach(([words,pts,label])=>{
+   if(words.some(w=>lower.includes(w))){
+     score+=pts;
+     flags.push(label);
+   }
+ });
+
+ score=Math.min(100,score);
+
+ let level="LOW";
+ let cls="good";
+ if(score>=70){level="HIGH";cls="danger"}
+ else if(score>=35){level="MEDIUM";cls="warn"}
+
+ showResult("scamResult",cls,
+  `<b>${escapeHTML(level)} — ${score}/100</b><br>
+   ${escapeHTML(flags.length?flags.join(", "):"No common warning signs detected.")}<br><br>
+   ${escapeHTML(lang==="en"
+    ?"Do not share OTP, PIN or passwords. Verify through an official channel before acting."
+    :tr("scamExplain"))}`
+ );
+
+ speakText(level+". "+tr("scamIntro"));
+}
+
+/* =========================================================
+   LEARNING
+   ========================================================= */
+
+function openLesson(type){
+ const content={
+  savings:{
+   title:tr("whySavings"),
+   body:`<p>${tr("whySavingsExplain")}</p><div class="step-list">
+    <div class="step"><div class="step-num">1</div><div>${lang==="en"?"Choose an amount you can regularly save.":tr("saveMoney")}</div></div>
+    <div class="step"><div class="step-num">2</div><div>${lang==="en"?"Keep emergency savings separate from everyday spending.":tr("emergencyFund")}</div></div>
+    <div class="step"><div class="step-num">3</div><div>${lang==="en"?"Track progress toward your goal.":tr("goals")}</div></div>
+   </div>`
+  },
+  credit:{
+   title:tr("understandCredit"),
+   body:`<p>${tr("creditExplain")}</p><div class="step-list">
+    <div class="step"><div class="step-num">1</div><div>${lang==="en"?"Check whether you are eligible.":tr("checkEligibility")}</div></div>
+    <div class="step"><div class="step-num">2</div><div>${lang==="en"?"Understand the amount, repayment and costs.":tr("details")}</div></div>
+    <div class="step"><div class="step-num">3</div><div>${lang==="en"?"Apply only when the terms are understood.":tr("submit")}</div></div>
+   </div>`
+  },
+  insurance:{
+   title:tr("understandInsurance"),
+   body:`<p>${tr("insuranceLearnExplain")}</p><div class="step-list">
+    <div class="step"><div class="step-num">1</div><div>${tr("healthInsurance")}</div></div>
+    <div class="step"><div class="step-num">2</div><div>${tr("lifeInsurance")}</div></div>
+    <div class="step"><div class="step-num">3</div><div>${tr("documentsMayNeed")}</div></div>
+   </div>`
+  },
+  scam:{
+   title:tr("avoidScams"),
+   body:`<p>${tr("scamLearnExplain")}</p><div class="step-list">
+    <div class="step"><div class="step-num">1</div><div>${lang==="en"?"Stop before clicking unknown links.":tr("security")}</div></div>
+    <div class="step"><div class="step-num">2</div><div>${lang==="en"?"Never share OTP or PIN.":tr("pinSecurity")}</div></div>
+    <div class="step"><div class="step-num">3</div><div>${lang==="en"?"Verify the request through an official channel.":tr("scam")}</div></div>
+   </div>`
+  },
+  offline:{
+   title:tr("offlineMeaning"),
+   body:`<p>${tr("offlineLearnExplain")}</p><div class="step-list">
+    <div class="step"><div class="step-num">1</div><div>${lang==="en"?"Action is stored locally as pending.":tr("deviceQueue")}</div></div>
+    <div class="step"><div class="step-num">2</div><div>${lang==="en"?"Internet returns.":tr("connection")}</div></div>
+    <div class="step"><div class="step-num">3</div><div>${lang==="en"?"The queue is synchronized and confirmed.":tr("syncNow")}</div></div>
+   </div>`
+  }
+ };
+
+ const x=content[type];
+ openModal(x.title,x.body);
+ speakText(x.title+". "+x.body.replace(/<[^>]+>/g," ").replace(/\s+/g," ").slice(0,500));
+}
+
+/* =========================================================
+   MODALS / UI HELPERS
+   ========================================================= */
+
+function openModal(title,body){
+ document.getElementById("modalTitle").textContent=title;
+ document.getElementById("modalBody").innerHTML=body;
+ document.getElementById("modal").classList.add("show");
+}
+
+function openConfirm(title,body,onConfirm){
+ openModal(
+  title,
+  `<div class="explain-box">${body}</div>
+   <div class="form-actions">
+    <button class="action primary" id="modalConfirm">${tr("submit")}</button>
+    <button class="action" onclick="closeModal()">${tr("change")}</button>
+   </div>`
+ );
+ document.getElementById("modalConfirm").onclick=()=>{
+   closeModal();
+   onConfirm();
+ };
+}
+
+function closeModal(){
+ document.getElementById("modal").classList.remove("show");
+}
+
+function showResult(id,type,html){
+ const el=document.getElementById(id);
+ if(!el)return;
+ el.className="result show "+type;
+ el.innerHTML=html;
+}
+
+function toast(message){
+ const el=document.getElementById("toast");
+ el.textContent=message;
+ el.classList.add("show");
+ setTimeout(()=>el.classList.remove("show"),2400);
+}
+
+function notifyUser(){
+ toast(lang==="en"?"No new notifications.":"✓");
+ speakText(lang==="en"?"There are no new notifications.":tr("voiceReady"));
+}
+
+function freezeAccount(){
+ toast(lang==="en"?"Prototype account freeze control activated.":"✓");
+ speakText(lang==="en"?"Prototype account freeze control activated.":"✓");
+}
+
+function copyPaymentId(){
+ const id=user?.paymentId||"FM-USER";
+ navigator.clipboard?.writeText(id);
+ toast(lang==="en"?"Payment ID copied.":"✓");
+}
+
+function escapeHTML(str){
+ return String(str).replace(/[&<>"']/g,m=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+ }[m]));
+}
+
+/* =========================================================
+   NETWORK
+   ========================================================= */
+
+window.addEventListener("online",()=>{
+ updateAll();
+ toast(lang==="en"?"Internet restored. Pending actions can now sync.":"✓");
+ if(queue.length) setTimeout(syncQueue,700);
+ speakText(lang==="en"?"Internet is restored. Pending actions can now be synchronized.":tr("syncNow"));
+});
+
+window.addEventListener("offline",()=>{
+ updateAll();
+ toast(lang==="en"?"You are offline. New savings actions will stay pending.":tr("offlineExplain"));
+ speakText(lang==="en"?"You are now offline. Pending actions will stay on this device until internet returns.":tr("offlineExplain"));
+});
+
+/* =========================================================
+   UPDATE ALL
+   ========================================================= */
+
+function updateAll(){
+ applyTranslations();
+ updateDashboard();
+ updateSavingsHistory();
+ updateQueue();
+ updateAccount();
+ updatePageName();
+}
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+function logout(){
+ window.speechSynthesis?.cancel();
+ stopRecognition();
+ document.getElementById("app").style.display="none";
+ document.getElementById("auth").classList.add("hidden");
+ document.getElementById("splash").classList.remove("hidden");
+ currentScreen="dashboard";
+ setTimeout(()=>speakText(tr("voiceReady")),200);
+}
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+window.speechSynthesis?.addEventListener?.("voiceschanged",()=>{});
+
+document.addEventListener("DOMContentLoaded",()=>{
+ setLanguage(lang);
+
+ if(user){
+   /* keep splash first so judge sees product entry */
+   document.getElementById("splash").classList.remove("hidden");
+ }
+
+ updateAll();
+ updateVoiceStatus(tr("voiceReady"));
+
+ /* Opening screen voice assistant is visible by default */
+ setTimeout(()=>{
+   speakText(tr("tagline")+". "+tr("splashDesc"));
+ },700);
+});
+</script>
+
+</body>
+</html>
